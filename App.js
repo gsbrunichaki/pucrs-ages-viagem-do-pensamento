@@ -57,7 +57,7 @@ export default function App() {
       {props => <Home {...props} setLogged={setLogged} />}
     </Screen>,
     
-    <Screen name="TripAircraft" component={TripAircraft} options={{ title: 'Avião' }} />,
+    <Screen name="TripAircraft" component={TripAircraft} options={{ title: 'Viagem' }} />,
     <Screen name="TripBag" component={TripBag} options={{ title: 'Mala de Pensamentos' }} />,
     <Screen name="TripIslands" component={TripIslands} options={{ title: 'Ilha das Emoções' }} />,
     <Screen name="TripReactions" component={TripReactions} options={{ title: 'Reações e Comportamento' }} />,
