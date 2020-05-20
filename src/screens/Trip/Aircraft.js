@@ -32,7 +32,7 @@ const airplanes = [
 export default function Aircraft({ navigation }) {
   return (
     <CloudImageBackground>
-      <PageBanner title={'Em qual avião \ndeseja embarcar?'} subtitle={'Escolha em qual aviao voce deseja embarcar.'} />
+      <PageBanner title={'Vamos embarcar em qual avião?'} />
       <View style={styles.container}>
         <View style={styles.content}>
           {airplanes.map(ap => {

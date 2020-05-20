@@ -19,7 +19,7 @@ const IconTextButton = ({ title, subtitle, image, onPress }) => {
 
 const styles = StyleSheet.create({
   cardButton: {
-    width: 340,
+    width: 310,
     height: 100,
     flexDirection: "row",
     padding: 10,
