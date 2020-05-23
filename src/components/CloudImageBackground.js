@@ -19,7 +19,8 @@ export default class CloudImageBackground extends Component {
 const styles = StyleSheet.create({
   imageStyle: {
     resizeMode: "cover",
-    alignSelf: "center"
+    alignSelf: "center",
+  
   },
   imageBackground: {
     flex: 1,

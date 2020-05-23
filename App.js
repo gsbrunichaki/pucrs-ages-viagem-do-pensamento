@@ -17,6 +17,11 @@ import TripAircraft from './src/screens/Trip/Aircraft';
 import TripBag from './src/screens/Trip/Bag';
 import TripIslands from './src/screens/Trip/Islands';
 import TripReactions from './src/screens/Trip/Reactions';
+import Perfil from './src/screens/Passport/Perfil';
+import Historico from './src/screens/Passport/Historico';
+import Passaporte from './src/screens/Passport/Passaporte';
+
+
 
 console.disableYellowBox = true;
 
@@ -61,8 +66,13 @@ export default function App() {
     <Screen name="TripBag" component={TripBag} options={{ title: 'Mala de Pensamentos' }} />,
     <Screen name="TripIslands" component={TripIslands} options={{ title: 'Ilha das Emoções' }} />,
     <Screen name="TripReactions" component={TripReactions} options={{ title: 'Reações e Comportamento' }} />,
+    <Screen name="Perfil" component={Perfil} options={{ title: 'Perfil do usuário' }} />,
+    <Screen name="Historico" component={Historico} options={{ title: 'Histórico de viagens' }} />,
+    <Screen name="Passaporte" component={Passaporte} options={{ title: 'Passaporte' }} />,
+    
+    
   ];
-
+  
   if (!isFontLoaded) {
     return <AppLoading />;
   }
@@ -72,7 +82,7 @@ export default function App() {
       <NavigationContainer>
         <Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#15A4F7',
+            backgroundColor: '#2C73D5',
 
           },
           headerTintColor: '#fff',
