@@ -10,14 +10,14 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/App icon/Base.png",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./src/assets/background/Splash icon.png",
       "resizeMode": "cover",
-      "backgroundColor": "#207ECE"
+      "backgroundColor": "#2C73D5"
     },
     "androidStatusBar": {
-      "backgroundColor": "#207ECE",
+      "backgroundColor": "#2C73D5",
       "barStyle": "light-content"
     },
     "updates": {

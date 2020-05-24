@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Image } from "react-native";
+import React, {useEffect} from "react";
+import {Image, ImageBackground} from "react-native";
 import {
   Card,
   CardItem,
@@ -8,28 +8,31 @@ import {
   Content,
   Text,
 } from "native-base";
-import { FlatList, StyleSheet } from "react-native";
+import {FlatList, StyleSheet} from "react-native";
 
 import IslandsEnum from "../../enums/Island";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {TouchableOpacity} from "react-native-gesture-handler";
+import CloudImageBackground from "../../components/CloudImageBackground";
+import Colors from "../../assets/Colors/Colors";
 
+const island = require("../../assets/island.png");
 const islands = [
-  { id: IslandsEnum.PRIDE, title: "Orgulho", image: require("../../assets/island.png") },
-  { id: IslandsEnum.JEALOUS, title: "Ciúmes", image: require("../../assets/island.png") },
-  { id: IslandsEnum.ANXIETY, title: "Ansiedade", image: require("../../assets/island.png") },
-  { id: IslandsEnum.ANGER, title: "Raiva", image: require("../../assets/island.png") },
-  { id: IslandsEnum.LOVE, title: "Amor", image: require("../../assets/island.png") },
-  { id: IslandsEnum.SADNESS, title: "Tristeza", image: require("../../assets/island.png") },
-  { id: IslandsEnum.DISGUSTED, title: "Nojo", image: require("../../assets/island.png") },
-  { id: IslandsEnum.FEAR, title: "Medo", image: require("../../assets/island.png") },
-  { id: IslandsEnum.GUILTY, title: "Culpa", image: require("../../assets/island.png") },
-  { id: IslandsEnum.MISSING, title: "Saudade", image: require("../../assets/island.png") },
-  { id: IslandsEnum.HAPPY, title: "Alegria", image: require("../../assets/island.png") },
-  { id: IslandsEnum.SHAME, title: "Vergonha", image: require("../../assets/island.png") },
+  {id: IslandsEnum.PRIDE, title: "Orgulho", image: require("../../assets/emoji/Proud.png")},
+  {id: IslandsEnum.JEALOUS, title: "Ciúmes", image: require("../../assets/emoji/Thumbs down.png")},
+  {id: IslandsEnum.ANXIETY, title: "Ansiedade", image: require("../../assets/emoji/Anxious.png")},
+  {id: IslandsEnum.ANGER, title: "Raiva", image: require("../../assets/emoji/Angry.png")},
+  {id: IslandsEnum.LOVE, title: "Amor", image: require("../../assets/emoji/Loving.png")},
+  {id: IslandsEnum.SADNESS, title: "Tristeza", image: require("../../assets/emoji/Thumbs up.png")},
+  {id: IslandsEnum.DISGUSTED, title: "Nojo", image: require("../../assets/emoji/Thumbs down.png")},
+  {id: IslandsEnum.FEAR, title: "Medo", image: require("../../assets/emoji/Fearful.png")},
+  {id: IslandsEnum.GUILTY, title: "Culpa", image: require("../../assets/emoji/Thumbs down.png")},
+  {id: IslandsEnum.MISSING, title: "Saudade", image: require("../../assets/emoji/Thumbs down.png")},
+  {id: IslandsEnum.HAPPY, title: "Alegria", image: require("../../assets/emoji/Happy.png")},
+  {id: IslandsEnum.SHAME, title: "Vergonha", image: require("../../assets/emoji/Thumbs down.png")},
 ];
 
-export default function Islands({ route, navigation }) {
-  const { aircraft, thoughts } = route.params;
+export default function Islands({route, navigation}) {
+  const {aircraft, thoughts} = route.params;
 
   useEffect(() => {
     if (!aircraft)
@@ -43,36 +46,46 @@ export default function Islands({ route, navigation }) {
   }, [aircraft, thoughts]);
 
   return (
-    <Container>
+    <CloudImageBackground>
       <Content style={styles.screen}>
-        <Text style={styles.title}>
-          Como se sente em relação a este pensamento?
-        </Text>
+        <Card transparent style={styles.headerCard}>
+          <CardItem header style={styles.headerCardItem}>
+            <Text style={styles.mainText}>
+              Como se sente em relação a este pensamento?
+            </Text>
+          </CardItem>
+        </Card>
         <FlatList
           numColumns={2}
           data={islands}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <Card style={styles.card}>
-              <TouchableOpacity onPress={_ => { navigation.navigate("TripReactions", { aircraft, island: item.id, thoughts }) }}>
+              <TouchableOpacity onPress={_ => {
+                navigation.navigate("TripReactions", {aircraft, island: item.id, thoughts})
+              }}>
                 <CardItem style={styles.cardItem}>
                   <Body style={styles.cardBody}>
-                    <Image style={styles.image} source={item.image} />
+                    <ImageBackground style={styles.image} source={island}>
+                      <Image style={{alignSelf: "center", marginVertical: "20%", opacity: 1, tintColor: null}} source={item.image} />
+                    </ImageBackground>
                     <Text style={styles.imageTitle}>{item.title}</Text>
                   </Body>
                 </CardItem>
               </TouchableOpacity>
             </Card>
           )}
+          style={{overflow: "visible", marginTop: 10}}
         />
       </Content>
-    </Container>
+    </CloudImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    margin: 20,
+    margin: 10,
+    overflow: "visible"
   },
   title: {
     marginBottom: 20,
@@ -81,9 +94,45 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     borderRadius: 15,
+    marginLeft: 10,
+    marginRight: 10,
+    shadowColor: Colors.shadowGray,
+    shadowOpacity: 0.5,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 10,
+    elevation: 5,
+    zIndex: 5,
+  },
+  mainText: {
+    display: "flex",
+    fontSize: 22,
+    fontWeight: "bold",
+    lineHeight: 30,
+    textAlign: "left",
+    color: Colors.coffee,
+    //fontFamily: 'Nunito'
+  },
+  headerCard: {
+    marginLeft: 0,
+  },
+  headerCardItem: {
+    paddingHorizontal: 30,
+    paddingTop: 20,
+    paddingBottom: 25,
+    backgroundColor: Colors.whitish,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    shadowColor: Colors.shadowGray,
+    shadowOpacity: 0.5,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 10,
+    elevation: 5,
+    zIndex: 5,
+    overflow: "visible",
   },
   cardItem: {
     borderRadius: 15,
+    backgroundColor: Colors.brightNavyBlue,
   },
   cardBody: {
     alignItems: "center",
@@ -93,8 +142,11 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     marginBottom: 10,
+    opacity: 0.5,
+    tintColor: Colors.brightNavyBlue,
   },
   imageTitle: {
     fontSize: 18,
+    color: Colors.white,
   },
 });
