@@ -1,54 +1,106 @@
-import React, { Component } from "react";
-import { View, PanResponder, Animated, Image, ImageBackground, StyleSheet, ImageComponent } from "react-native";
-import { Text, Button } from "native-base";
+import React, { useState } from "react";
+import { View, ImageBackground, StyleSheet,ScrollView} from "react-native";
+import CloudImageBackground from "../../components/CloudImageBackground";
+import PageBanner from "../../components/PageBanner";
+import { Text, Button,Item,Input } from "native-base";
+import { white } from "react-native-paper/lib/typescript/src/styles/colors";
 
 export default function Bag({ route, navigation }) {
+  const [pensamentos,setPensamentos] = useState(""); 
   const { aircraft } = route.params;
   return (
-    <View style={styles.container}>
+    <CloudImageBackground>
+       <Text> {aircraft} </Text>
+       <PageBanner title={'Que pensamentos você levará na mala?'} />
+      
+        
+        <ImageBackground  style={styles.camiseta} resizeMode="contain" source={require("../../assets/shirt.png")}>
+        
+        <ScrollView style={[styles.scrollview]}>
+          <Text style={styles.text}> {pensamentos} </Text>
+        </ScrollView>
 
-      <View style={styles.Bagimage}>
-        <Image resizeMode={"center"} source={require("../../assets/bag.png")} style={styles.Bagimage} />
-      </View>
+        </ImageBackground>    
+        <Item style={styles.inputSpacing}>
+          <Input 
+            value={pensamentos}
+            placeholder="Pensamento" 
+            style={styles.input}
+            onChangeText={(value)=>{setPensamentos(value)}}
+           />
+        </Item>
 
-      <Text style={styles.title}>Que pensamentos você levará na mala?</Text>
+      <Button style={[styles.button,styles.button1]} full rounded onPress={()=>{setPensamentos("Nossa, legal ")}}>
+        <Text>Nossa, legal</Text>
+      </Button>
 
-      <View style={styles.content} >
-        <ImageBackground source={require("../../assets/ThinkingBoard.png")} style={styles.Boardimage}>
-          <View style={styles.contentImage} >
-            <View style={styles.content}>
-              <Image source={require("../../assets/Emotions/Happy.png")} style={styles.Emotion} />
-              <Image source={require("../../assets/Emotions/Covided.png")} style={styles.Emotion} />
-            </View>
-            <View style={styles.content} >
-              <Image source={require("../../assets/Emotions/Proud.png")} style={styles.Emotion} />
-              <Image source={require("../../assets/Emotions/Shamed.png")} style={styles.Emotion} />
-            </View>
-            <View style={styles.content} >
-              <Image source={require("../../assets/Emotions/Sad.png")} style={styles.Emotion} />
-              <Image source={require("../../assets/Emotions/Angry.png")} style={styles.Emotion} />
-            </View>
-            <View style={styles.content} >
-              <Image source={require("../../assets/Emotions/Curious.png")} style={styles.Emotion} />
-              <Image source={require("../../assets/Emotions/Crying.png")} style={styles.Emotion} />
-            </View>
-          </View>
-        </ImageBackground>
-      </View>
-      <Button full rounded onPress={_ => { navigation.navigate("TripIslands", { aircraft, thoughts: ["t1", "t2", "t3"] }) }}>
+      <Button style={[styles.button,styles.button2]} full rounded onPress={()=>{setPensamentos("Humm, Ok ")}}>
+        <Text>Humm, Ok.</Text>
+      </Button>
+      
+      
+      <Button style={[styles.button,styles.button3]} full rounded onPress={()=>{setPensamentos("Ah, não gostei ")}}>
+        <Text>Ah, não gostei...</Text>
+      </Button>
+
+      <Button style={[styles.button,styles.button4]} full rounded onPress={_ => { navigation.navigate("TripIslands", { aircraft, thoughts: [pensamentos, "t2", "t3"] }) }}>
         <Text>Continuar</Text>
       </Button>
-    </View>
+    </CloudImageBackground>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#2CB3F2",
     alignItems: "center",
     alignContent: "center",
     width: "100%",
     height: "100%",
+  },
+  text: {
+    color: "white",
+  },
+  button: {
+    marginBottom: 10,
+    marginHorizontal: 30,
+  },
+
+  button1: {
+    backgroundColor:"#13C4A3",
+
+  },
+  button2: {
+    backgroundColor:"#F1C30F",
+
+  },
+  button3: {
+    backgroundColor:"#F75C03",
+
+  },
+  button4:{
+    marginHorizontal: 80,
+  },
+  inputSpacing: {
+    backgroundColor: "#FFF",
+    marginBottom: 20,
+    borderBottomWidth: 0,
+    width:"100%",
+    borderRadius: 10,
+    borderColor: "#000",
+    elevation: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 10,
+  },
+  input: {
+    width: "100%",
+    color: "#000",
+  },
+  camiseta: {
+    flex : 1,
+    paddingTop: 110,
+    paddingLeft: 90,
   },
   content: {
     flex: 1,
