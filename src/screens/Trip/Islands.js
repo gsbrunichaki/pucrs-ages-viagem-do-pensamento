@@ -18,17 +18,17 @@ import Colors from "../../assets/Colors/Colors";
 const island = require("../../assets/island.png");
 const islands = [
   {id: IslandsEnum.PRIDE, title: "Orgulho", image: require("../../assets/emoji/Proud.png")},
-  {id: IslandsEnum.JEALOUS, title: "Ciúmes", image: require("../../assets/emoji/Thumbs down.png")},
+  {id: IslandsEnum.JEALOUS, title: "Ciúmes", image: require("../../assets/emoji/ThumbsDown.png")},
   {id: IslandsEnum.ANXIETY, title: "Ansiedade", image: require("../../assets/emoji/Anxious.png")},
   {id: IslandsEnum.ANGER, title: "Raiva", image: require("../../assets/emoji/Angry.png")},
   {id: IslandsEnum.LOVE, title: "Amor", image: require("../../assets/emoji/Loving.png")},
-  {id: IslandsEnum.SADNESS, title: "Tristeza", image: require("../../assets/emoji/Thumbs up.png")},
-  {id: IslandsEnum.DISGUSTED, title: "Nojo", image: require("../../assets/emoji/Thumbs down.png")},
+  {id: IslandsEnum.SADNESS, title: "Tristeza", image: require("../../assets/emoji/ThumbsDown.png")},
+  {id: IslandsEnum.DISGUSTED, title: "Nojo", image: require("../../assets/emoji/ThumbsDown.png")},
   {id: IslandsEnum.FEAR, title: "Medo", image: require("../../assets/emoji/Fearful.png")},
-  {id: IslandsEnum.GUILTY, title: "Culpa", image: require("../../assets/emoji/Thumbs down.png")},
-  {id: IslandsEnum.MISSING, title: "Saudade", image: require("../../assets/emoji/Thumbs down.png")},
+  {id: IslandsEnum.GUILTY, title: "Culpa", image: require("../../assets/emoji/ThumbsDown.png")},
+  {id: IslandsEnum.MISSING, title: "Saudade", image: require("../../assets/emoji/ThumbsDown.png")},
   {id: IslandsEnum.HAPPY, title: "Alegria", image: require("../../assets/emoji/Happy.png")},
-  {id: IslandsEnum.SHAME, title: "Vergonha", image: require("../../assets/emoji/Thumbs down.png")},
+  {id: IslandsEnum.SHAME, title: "Vergonha", image: require("../../assets/emoji/ThumbsDown.png")},
 ];
 
 export default function Islands({route, navigation}) {
