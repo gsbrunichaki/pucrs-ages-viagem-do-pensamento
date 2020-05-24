@@ -9,20 +9,21 @@ import {
   Text,
 } from "native-base";
 import { StyleSheet, TextInput, Alert } from "react-native";
+import Emoji from 'react-native-emoji';
 import TripSchema from "../../schemas/Trip"; 
 import TripService from "../../services/Trip";
 import Loading from "../../components/Loading";
 
 export default function Reactions({ route, navigation }) {
   const [behaviour, setBehaviour] = useState("");
-  const [autoAnalysis, setAutoAnalysis] = useState(true);
+  const [autoAnalysis, setAutoAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const { aircraft, island, thoughts } = route.params;
   return (
     <Container style={style.container}>
       <Content style={style.content}>
-        <Card transparent>
+        <Card transparent style={style.firstCard}>
           <CardItem header style={style.firstCardItem}>
             <Text style={style.maintext}>
               Qual será a sua atitude na situação?
@@ -48,14 +49,20 @@ export default function Reactions({ route, navigation }) {
           <CardItem header style={style.firstCardItem}>
             <Text style={style.maintext}>Como você acha que se comportou?</Text>
           </CardItem>
-
-          <CardItem header bordered style={style.lastCardItem}>
-            <Segment>
-              <Button onPress={_ => setAutoAnalysis(true)} first active={autoAnalysis === true}><Text>Bem</Text></Button>
-              <Button onPress={_ => setAutoAnalysis(false)} last active={autoAnalysis === false}><Text>Mau</Text></Button>
-            </Segment>
-          </CardItem>
         </Card>
+            {autoAnalysis === null ? 
+            <Segment style={style.segment}>
+            <Button style={style.thumbsup} onPress={() => setAutoAnalysis(true)} first active={autoAnalysis}><Emoji name="+1" style={{fontSize: 100}} /></Button>
+            <Button style={style.thumbsdown} onPress={() => setAutoAnalysis(false)} last active={autoAnalysis}><Emoji name="-1" style={{fontSize: 100}} /></Button>
+            </Segment>
+            :
+            <Segment style={style.segment}>
+            <Button style={style.thumbsup} onPress={() => setAutoAnalysis(true)} first active={autoAnalysis}><Emoji name="+1" style={{fontSize: 100}} /></Button>
+            <Button style={style.thumbsdown} onPress={() => setAutoAnalysis(false)} last active={!autoAnalysis}><Emoji name="-1" style={{fontSize: 100}} /></Button>
+            </Segment>
+            }
+          {/* </CardItem> */}
+        {/* </Card> */}
 
         <Button full rounded style={style.button} title="Clique aqui para completar a sua viagem"
           onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis, behaviour }, {setLoading, loading})}>
@@ -66,6 +73,10 @@ export default function Reactions({ route, navigation }) {
       </Content>
     </Container>
   );
+}
+
+function handleButton (id) {
+  
 }
 
 const saveTrip = (trip, { setLoading, loading }) => {
@@ -104,6 +115,30 @@ const style = StyleSheet.create({
     //position: "absolute",
     top: 10,
     //left: 40,
+    display: "none",
+  },
+  thumbsup: {
+    backgroundColor: "green",
+    height: "200%",
+    borderRadius: 10,
+    paddingBottom: 50,
+  },
+  thumbsdown: {
+    backgroundColor: "red",
+    height: "200%",
+    borderRadius: 10,
+  },
+  handleButton: {
+    borderColor: "black"
+  },
+  segment: {
+    display: "flex",
+    position: "relative",
+    width: "80%",
+    left: 50,
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "black",
   },
   textbutton: {
     marginTop: 1,
@@ -136,6 +171,9 @@ const style = StyleSheet.create({
     color: "#798A9B",
     // fontFamily: "Nunito"
   },
+  firstCard: {
+    padding: 10,
+  },
   firstCardItem: {
     display: "flex",
     flexDirection: "column",
@@ -160,6 +198,8 @@ const style = StyleSheet.create({
   card: {
     borderRadius: 20,
     marginBottom: 30,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   TextInputStyleClass: {
     display: "flex",
