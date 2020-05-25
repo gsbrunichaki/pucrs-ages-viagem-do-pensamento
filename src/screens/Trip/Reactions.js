@@ -3,33 +3,40 @@ import {
   Container,
   Content,
   Button,
-  Segment,
   Card,
   CardItem,
   Text,
+  View,
 } from "native-base";
-import { StyleSheet, TextInput, Alert } from "react-native";
+import { StyleSheet, TextInput, Alert, TouchableOpacity, } from "react-native";
 import Emoji from 'react-native-emoji';
 import TripSchema from "../../schemas/Trip"; 
 import TripService from "../../services/Trip";
 import Loading from "../../components/Loading";
+import CloudImageBackground from "../../components/CloudImageBackground";
+
 
 export default function Reactions({ route, navigation }) {
   const [behaviour, setBehaviour] = useState("");
   const [autoAnalysis, setAutoAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  function displayFeedback(){
+    text.style.display = "block";
+  }
+
   const { aircraft, island, thoughts } = route.params;
   return (
     <Container style={style.container}>
-      <Content style={style.content}>
+      <CloudImageBackground>
+        <Content style={style.content}>
         <Card transparent style={style.firstCard}>
           <CardItem header style={style.firstCardItem}>
             <Text style={style.maintext}>
               Qual será a sua atitude na situação?
             </Text>
             <Text style={style.subtext}>
-              Explique melhor o seu comportamento.
+              Explique melhor o seu comportamento abaixo.
             </Text>
           </CardItem>
           <CardItem header bordered style={style.lastCardItem}>
@@ -46,37 +53,49 @@ export default function Reactions({ route, navigation }) {
         </Card>
 
         <Card transparent style={style.card}>
-          <CardItem header style={style.firstCardItem}>
+          <CardItem header style={style.firstCardItem2}>
             <Text style={style.maintext}>Como você acha que se comportou?</Text>
-          </CardItem>
-        </Card>
+            </CardItem>
             {autoAnalysis === null ? 
-            <Segment style={style.segment}>
-            <Button style={style.thumbsup} onPress={() => setAutoAnalysis(true)} first active={autoAnalysis}><Emoji name="+1" style={{fontSize: 100}} /></Button>
-            <Button style={style.thumbsdown} onPress={() => setAutoAnalysis(false)} last active={autoAnalysis}><Emoji name="-1" style={{fontSize: 100}} /></Button>
-            </Segment>
-            :
-            <Segment style={style.segment}>
-            <Button style={style.thumbsup} onPress={() => setAutoAnalysis(true)} first active={autoAnalysis}><Emoji name="+1" style={{fontSize: 100}} /></Button>
-            <Button style={style.thumbsdown} onPress={() => setAutoAnalysis(false)} last active={!autoAnalysis}><Emoji name="-1" style={{fontSize: 100}} /></Button>
-            </Segment>
+            <View style={style.botoes}>
+            <TouchableOpacity style={style.thumbsup} onPress={() => setAutoAnalysis("up")}><Emoji name="+1" style={{fontSize: 60}} /></TouchableOpacity>
+            <TouchableOpacity style={style.thumbsdown} onPress={() => setAutoAnalysis("down")}><Emoji name="-1" style={{fontSize: 60}} /></TouchableOpacity>
+            </View>
+           : 
+            <View style={style.botoes}>
+            <TouchableOpacity style={[style.thumbsup, {borderColor: autoAnalysis === "up" ? 'black' : 'green'}]} onPress={() => setAutoAnalysis("up")} first active={autoAnalysis === "up"}><Emoji name="+1" style={{fontSize: 60, borderColor: 'black'}} /></TouchableOpacity>
+            <TouchableOpacity style={[style.thumbsdown, {borderColor: autoAnalysis === "down" ? 'black' : 'red'}]} onPress={() => setAutoAnalysis("down")} last active={autoAnalysis === "down"}><Emoji name="-1" style={{fontSize: 60, borderColor: 'black'}} /></TouchableOpacity>
+            </View>
             }
-          {/* </CardItem> */}
-        {/* </Card> */}
-
-        <Button full rounded style={style.button} title="Clique aqui para completar a sua viagem"
-          onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis, behaviour }, {setLoading, loading})}>
-          <Text style={style.textbutton}>Completar</Text>
-        </Button>
+            </Card>
+            {autoAnalysis === "up" && 
+              (
+              <Content style={style.feedbacks}>
+              <Text style={style.positivetext}>Esse é o feedback da ação selecionada no botão acima. Tem função de dar um retorno sobre a escolha da criança</Text>
+              <Button full rounded style={style.button} title="Clique aqui para completar a sua viagem"
+              onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis:autoAnalysis === "up", behaviour }, {setLoading, loading})}>
+              <Text style={style.textbutton}>Completar</Text>
+              </Button>  
+              </Content>
+              )
+            }
+            {autoAnalysis === "down" && 
+              (
+              <Content style={style.feedbacks}>
+              <Text style={style.negativetext}>Esse é o feedback da ação selecionada no botão acima. Tem função de dar um retorno sobre a escolha da criança</Text>
+              <Button full rounded style={style.button} title="Clique aqui para completar a sua viagem"
+              onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis:autoAnalysis === "up", behaviour }, {setLoading, loading})}>
+              <Text style={style.textbutton}>Completar</Text>
+              </Button>
+              </Content>
+              )
+            }
 
         <Loading loading={loading} />
-      </Content>
+        </Content>
+      </CloudImageBackground>
     </Container>
   );
-}
-
-function handleButton (id) {
-  
 }
 
 const saveTrip = (trip, { setLoading, loading }) => {
@@ -112,33 +131,29 @@ const style = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 20,
-    //position: "absolute",
     top: 10,
-    //left: 40,
-    display: "none",
+    shadowColor: "#798A9B",
+    shadowOpacity: 0.5,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 10,
+    elevation: 5,
+    zIndex: 5,
+  },
+  rodape: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
   },
   thumbsup: {
-    backgroundColor: "green",
-    height: "200%",
-    borderRadius: 10,
-    paddingBottom: 50,
+    backgroundColor: "#13C4A3",
+    borderRadius: 30,
+    padding: 30,
   },
   thumbsdown: {
-    backgroundColor: "red",
-    height: "200%",
-    borderRadius: 10,
-  },
-  handleButton: {
-    borderColor: "black"
-  },
-  segment: {
-    display: "flex",
-    position: "relative",
-    width: "80%",
-    left: 50,
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "black",
+    backgroundColor: "#FF8252",
+    borderRadius: 30,
+    padding: 30,
   },
   textbutton: {
     marginTop: 1,
@@ -150,9 +165,50 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: "#f4f4f4",
   },
+  feedbacks: {
+    padding: 10,
+    shadowColor: "#798A9B",
+    shadowOpacity: 0.5,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 10,
+    elevation: 5,
+    zIndex: 5,
+  },
+  positivetext: {
+    backgroundColor: "#13C4A3",
+    color: "white",
+    fontSize: 22,
+    padding: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10,
+  },
+  negativetext: {
+    backgroundColor: "#FF8252",
+    color: "white",
+    fontSize: 22,
+    padding: 10,
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10,
+  },
+  botoes: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 30,
+    paddingRight: 40,
+    paddingLeft: 40,
+    shadowColor: "#798A9B",
+    shadowOpacity: 0.5,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 10,
+    elevation: 5,
+    zIndex: 5,
+  },
   content: {
     display: "flex",
-    // height: 100%,
+    flex: 1,
   },
   maintext: {
     display: "flex",
@@ -178,28 +234,56 @@ const style = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#fafafa",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     paddingTop: 25,
     paddingLeft: 30,
     paddingRight: 30,
+    shadowColor: "#798A9B",
+    shadowOpacity: 0.5,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 10,
+    elevation: 5,
+    zIndex: 5,
+  },
+  firstCardItem2: {
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "#fafafa",
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    paddingTop: 25,
+    paddingLeft: 30,
+    paddingRight: 30,
+    shadowColor: "#798A9B",
+    shadowOpacity: 0.5,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 10,
+    elevation: 5,
+    zIndex: 5,
   },
   cardItem: {
     backgroundColor: "#fafafa",
   },
   lastCardItem: {
     backgroundColor: "#fafafa",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
     paddingBottom: 40,
     paddingLeft: 30,
     paddingRight: 30,
+    shadowColor: "#798A9B",
+    shadowOpacity: 0.5,
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 10,
+    elevation: 5,
+    zIndex: 5,
   },
   card: {
-    borderRadius: 20,
-    marginBottom: 30,
-    paddingLeft: 10,
+    borderTopRightRadius: 20,
+    paddingBottom: 10,
     paddingRight: 10,
+    
   },
   TextInputStyleClass: {
     display: "flex",
