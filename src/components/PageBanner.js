@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
+import Colors from "../assets/Colors/Colors";
 
 export default class PageBanner extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   title: {
-    color: "#3F3232",
+    color: Colors.coffee,
     fontSize: 22,
     textAlign: "left",
     fontWeight: "bold",

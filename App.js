@@ -17,11 +17,10 @@ import TripAircraft from './src/screens/Trip/Aircraft';
 import TripBag from './src/screens/Trip/Bag';
 import TripIslands from './src/screens/Trip/Islands';
 import TripReactions from './src/screens/Trip/Reactions';
+import Colors from "./src/assets/Colors/Colors";
 import Perfil from './src/screens/Passport/Perfil';
 import Historico from './src/screens/Passport/Historico';
 import Passaporte from './src/screens/Passport/Passaporte';
-
-
 
 console.disableYellowBox = true;
 
@@ -82,10 +81,9 @@ export default function App() {
       <NavigationContainer>
         <Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#2C73D5',
-
+            backgroundColor: '#2C73D5'
           },
-          headerTintColor: '#fff',
+          headerTintColor: Colors.white,
         }}>
           {isLogged
             ? authenticatedRoutes(setLogged)
