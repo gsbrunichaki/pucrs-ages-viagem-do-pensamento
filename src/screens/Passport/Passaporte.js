@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import { NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Historico from './Historico';
 import Perfil from './Perfil';
@@ -37,7 +37,7 @@ export default function App() {
         })}
         tabBarOptions={{
           activeTintColor: '#2C73D5',
-          inactiveTintColor: 'gray',
+          inactiveTintColor: 'gray',  
         }}
       >
         <Tab.Screen name="Perfil" component={Perfil} />

@@ -1,16 +1,22 @@
-import React  from "react";
+import React, { useState, useEffect }  from "react";
 import {Image,ImageBackground, StyleSheet, ScrollView} from "react-native";
-import {Text,Button, Card, View, Item } from "native-base";
-import { Directions } from "react-native-gesture-handler";
-
-
-// menininha no perfil tem que ta redonda
-// fonte nunito
-//linhazinhas no perfil
-// puxar os dados do firebase
+import {Text, Card, Item } from "native-base";
+import TripService from "../../services/Trip";
 
 export default function Historico({ navigation }) {
- 
+  const [trips, setTrips] = useState([]);
+
+  useEffect(() => {
+    TripService.getAll()
+      .then(trip => setTrips(trip))
+      .catch(err => console.error(err))
+  }, []);
+
+  console.log(trips);
+
+  //A princpio, a variavel `trips` já tem o histórico de todas as viagens deste usuário
+  //A partir desta variável, vocês devem fazer um forEach para demonstrar todos os valores desta variável
+
   return (
     <ImageBackground 
         source={require("../../assets/cloud-background.png")} 
@@ -113,17 +119,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 10,
     marginBottom: 15
-    
+
 
   },
   cardDate:{
-      marginLeft: -1,
-      flex: 1,
-      width: "94.44%",
+
+
+    marginLeft:-1,
       marginTop: 20,
       borderTopRightRadius: 10,
       borderBottomRightRadius: 10,
-
+      marginRight: 15,
+      
   },
   textDate:{
     fontSize: 22,
