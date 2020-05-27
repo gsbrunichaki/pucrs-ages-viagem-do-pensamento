@@ -10,5 +10,5 @@ export default {
     DISGUSTED: "disgusted",
     GUILTY: "guilty",
     SHAME: "shame",
-    MISSING: "missing"
+    LONGING: "longing"
 }

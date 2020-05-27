@@ -8,6 +8,7 @@ export default {
   coffee: "#3F3232",
   shadowGray: "#798A9B",
   orange: "#F75C03",
+  lightOrange: "#FF8252",
   jonquilYellow: "#F1C30F",
   caribbeanGreen: "#13C4A3",
 }

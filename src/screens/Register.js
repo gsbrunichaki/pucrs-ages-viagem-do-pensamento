@@ -17,6 +17,8 @@ import UserService from "../services/User";
 
 import LibDate from "../lib/date";
 import ErrorMessages from "../lib/errors";
+import Colors from "../assets/Colors/Colors";
+import shadowCode from "../components/shadowCode";
 
 export default function Register({ navigation }) {
   const [name, setName] = useState("");
@@ -188,18 +190,18 @@ const doSubmit = (values, setLoading, navigation) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAFAFA",
+    backgroundColor: Colors.whitish,
   },
   content: {
     margin: 20,
   },
   title: {
-    color: "#3F3232",
+    color: Colors.coffee,
     fontSize: 22,
     marginTop: 10,
   },
   subtitle: {
-    color: "#798A9B",
+    color: Colors.shadowGray,
     fontSize: 14,
     marginBottom: 10,
   },
@@ -208,16 +210,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderBottomWidth: 0,
     borderRadius: 10,
-    backgroundColor: "#FFF",
-    color: "#798A9B",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 5,
+    backgroundColor: Colors.white,
+    color: Colors.shadowGray,
+    ...shadowCode,
   },
   datepicker: {
     marginVertical: 10,

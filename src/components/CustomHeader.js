@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'native-base';
+import Colors from "../assets/Colors/Colors";
 
 class CustomHeader extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class CustomHeader extends Component {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: "transparent",
-    color: "#000",
+    color: Colors.white,
     height: 50,
     justifyContent: "space-between",
     alignItems: "center",
@@ -40,11 +41,11 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   title: {
-    color: "#000",
+    color: Colors.white,
     fontSize: 18
   },
   icon: {
-    color: "#000",
+    color: Colors.white,
   },
 });
 

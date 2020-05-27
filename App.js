@@ -17,6 +17,7 @@ import TripAircraft from './src/screens/Trip/Aircraft';
 import TripBag from './src/screens/Trip/Bag';
 import TripIslands from './src/screens/Trip/Islands';
 import TripReactions from './src/screens/Trip/Reactions';
+import Colors from "./src/assets/Colors/Colors";
 
 console.disableYellowBox = true;
 
@@ -72,10 +73,10 @@ export default function App() {
       <NavigationContainer>
         <Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#15A4F7',
+            backgroundColor: Colors.brightNavyBlue,
 
           },
-          headerTintColor: '#fff',
+          headerTintColor: Colors.white,
         }}>
           {isLogged
             ? authenticatedRoutes(setLogged)

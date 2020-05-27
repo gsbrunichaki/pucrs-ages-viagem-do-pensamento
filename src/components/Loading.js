@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Modal, ActivityIndicator } from 'react-native';
+import Colors from "../assets/Colors/Colors";
 
 class Loading extends React.Component {
   render() {
@@ -8,7 +9,7 @@ class Loading extends React.Component {
         <View style={styles.modalBackground}>
           <ActivityIndicator
             size="large"
-            color={"#0078ff"}
+            color={Colors.blueJeans}
           />
         </View>
       </Modal>
@@ -22,7 +23,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    backgroundColor: '#00000040',
+    backgroundColor: Colors.white,
+    opacity: 0.4,
   },
 });
 

@@ -12,8 +12,8 @@ import {FlatList, StyleSheet} from "react-native";
 import IslandsEnum from "../../enums/Island";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CloudImageBackground from "../../components/CloudImageBackground";
-import PageBanner from "../../components/PageBanner";
 import Colors from "../../assets/Colors/Colors";
+import shadowCode from "../../components/shadowCode";
 
 const island = require("../../assets/island.png");
 const islands = [
@@ -25,7 +25,7 @@ const islands = [
   {
     id: IslandsEnum.JEALOUS,
     title: "Ciúmes",
-    image: require("../../assets/emoji/ThumbsDown.png"),
+    image: require("../../assets/emoji/Jealous.png"),
   },
   {
     id: IslandsEnum.ANXIETY,
@@ -45,12 +45,12 @@ const islands = [
   {
     id: IslandsEnum.SADNESS,
     title: "Tristeza",
-    image: require("../../assets/emoji/ThumbsDown.png"),
+    image: require("../../assets/emoji/Sad.png"),
   },
   {
     id: IslandsEnum.DISGUSTED,
     title: "Nojo",
-    image: require("../../assets/emoji/ThumbsDown.png"),
+    image: require("../../assets/emoji/Disgusted.png"),
   },
   {
     id: IslandsEnum.FEAR,
@@ -60,12 +60,12 @@ const islands = [
   {
     id: IslandsEnum.GUILTY,
     title: "Culpa",
-    image: require("../../assets/emoji/ThumbsDown.png"),
+    image: require("../../assets/emoji/Guilty.png"),
   },
   {
-    id: IslandsEnum.MISSING,
+    id: IslandsEnum.LONGING,
     title: "Saudade",
-    image: require("../../assets/emoji/ThumbsDown.png"),
+    image: require("../../assets/emoji/Longing.png"),
   },
   {
     id: IslandsEnum.HAPPY,
@@ -75,7 +75,7 @@ const islands = [
   {
     id: IslandsEnum.SHAME,
     title: "Vergonha",
-    image: require("../../assets/emoji/ThumbsDown.png"),
+    image: require("../../assets/emoji/Shy.png"),
   },
 ];
 
@@ -96,7 +96,8 @@ export default function Islands({ route, navigation }) {
   }, [aircraft, thoughts]);
 
   return (
-    <CloudImageBackground>
+    <CloudImageBackground style={styles.screen}>
+      <Content>
       <Card transparent style={styles.headerCard}>
         <CardItem header style={styles.headerCardItem}>
           <Text style={styles.mainText}>
@@ -104,7 +105,6 @@ export default function Islands({ route, navigation }) {
           </Text>
         </CardItem>
       </Card>
-      <Content style={styles.screen}>
         <FlatList
           numColumns={2}
           data={islands}
@@ -123,7 +123,7 @@ export default function Islands({ route, navigation }) {
                 <CardItem style={styles.cardItem}>
                   <Body style={styles.cardBody}>
                     <ImageBackground style={styles.image} source={island}>
-                      <Image style={{alignSelf: "center", marginVertical: "20%"}} source={item.image} />
+                      <Image style={styles.emoji} source={item.image} />
                     </ImageBackground>
                     <Text style={styles.imageTitle}>{item.title}</Text>
                   </Body>
@@ -140,7 +140,7 @@ export default function Islands({ route, navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    margin: 10,
+    marginHorizontal: 20,
     overflow: "visible",
   },
   title: {
@@ -150,14 +150,11 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     borderRadius: 15,
+    marginTop: 0,
+    marginBottom: 20,
     marginLeft: 10,
     marginRight: 10,
-    shadowColor: Colors.shadowGray,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 10,
-    elevation: 5,
-    zIndex: 5,
+    ...shadowCode,
   },
   mainText: {
     display: "flex",
@@ -171,6 +168,7 @@ const styles = StyleSheet.create({
   headerCard: {
     marginLeft: 0,
     marginRight: 10,
+    marginTop: 15,
   },
   headerCardItem: {
     paddingHorizontal: 30,
@@ -179,13 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.whitish,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
-    shadowColor: Colors.shadowGray,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 10,
-    elevation: 5,
-    zIndex: 5,
-    overflow: "visible",
+    ...shadowCode,
   },
   cardItem: {
     borderRadius: 15,
@@ -196,12 +188,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: 80,
-    height: 80,
+    width: 104,
+    height: 104,
+    marginTop: 15,
     marginBottom: 10,
+  },
+  emoji: {
+    alignSelf: "center",
+    marginTop: 28,
   },
   imageTitle: {
     fontSize: 18,
+    fontWeight: "bold",
     color: Colors.white,
   },
 });

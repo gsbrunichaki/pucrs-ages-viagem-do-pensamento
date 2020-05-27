@@ -3,6 +3,8 @@ import { Button, Form, Item, Text, Input, Label } from "native-base";
 import { Alert, StyleSheet, ImageBackground } from "react-native";
 import UserService from "../services/User";
 import Loading from "../components/Loading";
+import Colors from "../assets/Colors/Colors";
+import shadowCode from "../components/shadowCode";
 
 export default function Login({ navigation, setLogged }) {
   const [ email, setEmail ] = useState("");
@@ -86,31 +88,27 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   input: {
-    color: "#000"
+    color: Colors.coffee,
+    paddingLeft: 5,
   },
   inputSpacing: {
-    backgroundColor: "#FFF",
+    backgroundColor: Colors.white,
     marginBottom: 20,
     borderBottomWidth: 0,
     marginTop: 0,
     marginLeft: 0,
-    borderRadius: 10,
-    borderColor: "#000",
-    elevation: 10,
-  },
-  input: {
-    paddingLeft: 5,
+    ...shadowCode
   },
   title: {
     fontSize: 48,
     fontWeight: 'bold',
     lineHeight: 50,
     textAlign: 'center',
-    color: "#FFFFFF",
+    color: Colors.white,
     // fontFamily: "Cochin"
   },
   subtitle: {
-    color: "#3F3232",
+    color: Colors.coffee,
     marginTop: "10%",
     textAlign: 'center',
     marginBottom: "10%",
@@ -127,12 +125,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 60,
   },
   loginButtonText: {
-    color: "#fff",
+    color: Colors.white,
     fontWeight: "bold",
     fontSize: 20
   },
   registerButtonLink: {
-    color: "#025D8C",
+    color: Colors.darkBlue,
     fontSize: 20
   }
 });
