@@ -24,7 +24,10 @@ export default function Home({ navigation, setLogged }) {
 
         <IconTextButton title="Passaporte"
           subtitle="Ver informações salvas sobre você."
-          onPress={_ => { navigation.navigate("") }}
+          // onPress={_ => { navigation.navigate("") }}
+          onPress={(_) => {
+            alert("Tutorial em construção...");
+          }}
           image={require("../assets/cloud-icon.png")} />
 
         <Button onPress={() => { UserService.logout(); setLogged(false); }}>
