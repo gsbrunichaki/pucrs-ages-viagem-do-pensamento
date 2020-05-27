@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Image, ImageBackground, StyleSheet, ScrollView, Alert } from "react-native";
+import moment from "moment";
+import { ImageBackground, StyleSheet, ScrollView, Alert } from "react-native";
 import { Text, Button, View, Card, Input, Item, Picker, DatePicker, Label } from "native-base";
 import UserService from "../../services/User";
 import UserSchema from "../../schemas/UserUpdate";
-
+import LibDate from "../../lib/date";
 
 export default function Perfil({ navigation }) {
 
@@ -24,15 +25,17 @@ export default function Perfil({ navigation }) {
   useEffect(() => {
     UserService.getUserData()
       .then(u => {
-        console.log(u)
         setUser(u);
         setName(u.name);
         setEmail(u.email);
         setChildrenName(u.childrenName);
         setChildrenGender(u.childrenGender);
-        setChildrenBirthday(u.childrenBirthday);
-       })
-      .catch(err => console.error(err))
+        setChildrenBirthday(u.childrenBirthday.toDate());
+      })
+      .catch(err => {
+        console.error(err);
+        Alert.alert("Erro", "Ocorreu um erro ao ler os dados cadastrais do seu perfil");
+      })
   }, []);
 
   return (
@@ -51,12 +54,12 @@ export default function Perfil({ navigation }) {
                 defaultValue={name}
                 onChangeText={value => setName(value)} />
             </Item>
-            <Item style={styles.inputSpacingBlocked}>
+            {/*<Item style={styles.inputSpacingBlocked}>
               <Input style={styles.input} placeholder={"Ex: crianca@viagemdopensamento.com.br"}
                 defaultValue={email}
 
                 onChangeText={value => setEmail(value)} />
-            </Item>
+            </Item>*/}
             <Item style={styles.inputSpacing}>
               <Input style={styles.input} placeholder={"*******"} />
             </Item>
@@ -68,8 +71,6 @@ export default function Perfil({ navigation }) {
                 <Text style={styles.title}>Perfil do dependente</Text>
                 <Text style={styles.subtitle}>{'Insira abaixo os dados da criança'}</Text>
               </View>
-
-              <Image source={require("../../assets/menininha.jpg")} style={styles.image} />
             </View>
             <Item style={styles.inputSpacing}>
               <Input style={styles.input} placeholder={"Nome da criança"}
@@ -89,9 +90,10 @@ export default function Perfil({ navigation }) {
               </Picker>
             </Item>}
             <View style={[styles.datepicker, { marginTop: 20, color: "#ccc" }]}>
-            <Label style={{ color: "#575757" }}>Data de nascimento:</Label>
+              <Label style={{ color: "#575757" }}>Data de nascimento:</Label>
+              {childrenBirthday !== null &&
               <DatePicker
-                defaultDate={new Date(2020, 1, 1)}
+                defaultDate={childrenBirthday}
                 minimumDate={new Date(1900, 1, 1)}
                 maximumDate={new Date()}
                 androidMode={"spinner"}
@@ -99,7 +101,7 @@ export default function Perfil({ navigation }) {
                 placeHolderTextStyle={{ color: "#d3d3d3" }}
                 onDateChange={setChildrenBirthday}
                 disabled={false}
-              />
+              />}
             </View>
           </Card>
 
@@ -116,32 +118,28 @@ export default function Perfil({ navigation }) {
 }
 
 const doSubmit = (values, navigation) => {
-
+  /*const { childrenBirthday } = values;
+  values.childrenBirthday = LibDate.dmY2Ymd(LibDate.formatDate(childrenBirthday));*/
   const userSchema = new UserSchema(values);
 
   UserService.update(userSchema, UserService.uid)
     .then((_) => {
-      navigation.navigate('Home');
-      //   console.log("dessa vez deu certo!!")
-      // Alert.alert(
-      //   "Dados cadastrais atualizados.",
-      //   [
-      //     {
-      //       text: "OK",
-      //       onPress: () => {
-      //         navigation.navigate("Home");
-      //       },
-      //     },
-      //   ],
-      //   { cancelable: false }
-      // );
+      Alert.alert("Sucesso", "Dados cadastrais atualizados com sucesso!",
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              //navigation.navigate("Home");
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     })
-    .catch((errorCode) => {
-      console.log("erro do krl", errorCode);
-      Alert.alert(   "Erro",
-      ErrorMessages[errorCode.toString()],
-      [{ text: "OK", onPress: () => setLoading(false) }],
-      { cancelable: false })
+    .catch(error => {
+      Alert.alert("Erro", error.toString(),
+        [{ text: "OK"/*, onPress: () => setLoading(false) */}],
+        { cancelable: false })
     });
 };
 
@@ -230,7 +228,7 @@ const styles = StyleSheet.create({
 
   },
   subtitle: {
-    padding: 5,
+    paddingTop: 5,
     color: "#798A9B",
     fontSize: 14,
     marginBottom: 15,
