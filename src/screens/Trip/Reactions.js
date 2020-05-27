@@ -90,7 +90,7 @@ export default function Reactions({ route, navigation }) {
               <Text style={style.feedbackText}>Esse é o feedback da ação selecionada no botão acima. Tem função de dar um retorno sobre a escolha da criança</Text>
                 </View>
               <Button full rounded style={style.button} title="Clique aqui para completar a sua viagem"
-              onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis:autoAnalysis === "up", behaviour }, {setLoading, loading})}>
+              onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis:autoAnalysis === "up", behaviour }, {setLoading, loading}, navigation)}>
               <Text style={style.textButton}>Completar</Text>
               </Button>
               </Content>
@@ -104,7 +104,7 @@ export default function Reactions({ route, navigation }) {
   );
 }
 
-const saveTrip = (trip, { setLoading, loading }) => {
+const saveTrip = (trip, { setLoading, loading }, navigation) => {
   if (loading)
     return;
 
@@ -115,7 +115,8 @@ const saveTrip = (trip, { setLoading, loading }) => {
   TripService.create(schema)
     .then(_ => {
       setLoading(false);
-      alert("Criado com sucesso!");
+      navigation.navigate("Home")
+      Alert.alert("Sucesso", "Viagem criada com sucesso!");
     })
     .catch(errorCode => {
       console.log(errorCode);
