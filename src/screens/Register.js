@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, View, ScrollView } from "react-native";
+import { Alert, StyleSheet, View, ScrollView,ImageBackground} from "react-native";
 import {
   DatePicker,
   Button,
@@ -9,6 +9,7 @@ import {
   Picker,
   Input,
   Text,
+  Content,
 } from "native-base";
 import Loading from "../components/Loading";
 
@@ -17,6 +18,8 @@ import UserService from "../services/User";
 
 import LibDate from "../lib/date";
 import ErrorMessages from "../lib/errors";
+import Colors from "../assets/Colors/Colors";
+import shadowCode from "../components/shadowCode";
 
 export default function Register({ navigation }) {
   const [name, setName] = useState("");
@@ -38,15 +41,14 @@ export default function Register({ navigation }) {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.content}>
+    <ImageBackground source={require("../assets/cloud-background.png")} style={styles.imageBackground} imageStyle={styles.imageStyle} >
+    <ScrollView>
         <Form style={styles.form}>
-          <View>
+          <View style={styles.content}>
             <Text style={styles.title}>Perfil do Responsável</Text>
             <Text style={styles.subtitle}>
               Insira abaixo os dados da pessoa responsável pela criança.
             </Text>
-
             <Input
               style={styles.input}
               placeholder="Nome completo"
@@ -83,13 +85,11 @@ export default function Register({ navigation }) {
               }}
             />
           </View>
-
-          <View style={{ marginTop: 20 }}>
+          <View style={styles.content}>
             <Text style={styles.title}>Perfil do Dependente</Text>
             <Text style={styles.subtitle}>
               Insira abaixo os dados da criança.
             </Text>
-
             <Input
               style={styles.input}
               placeholder="Nome completo"
@@ -98,7 +98,7 @@ export default function Register({ navigation }) {
                 setChildrenName(value);
               }}
             />
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 20, marginLeft: 20}}>
               <Label style={{ color: "#575757" }}>Gênero</Label>
               <Picker
                 note
@@ -112,8 +112,7 @@ export default function Register({ navigation }) {
                 <Picker.Item label="Outro" value="outro" />
               </Picker>
             </View>
-
-            <View style={[styles.datepicker, { marginTop: 20, color: "#ccc" }]}>
+            <View style={[styles.datepicker, { marginTop: 20, color: "#ccc", marginLeft: 20 }]}>
               <Label style={{ color: "#575757" }}>Data de nascimento</Label>
               <DatePicker
                 defaultDate={new Date(2000, 1, 1)}
@@ -128,7 +127,6 @@ export default function Register({ navigation }) {
               />
             </View>
           </View>
-
           <Button
             style={styles.button}
             onPress={(_) => {
@@ -137,13 +135,13 @@ export default function Register({ navigation }) {
             full
             rounded
           >
-            <Text style={styles.buttonSubmitText}>Cadastrar</Text>
+            <Text style={styles.buttonSubmitText}>Concluir</Text>
           </Button>
         </Form>
 
         <Loading loading={loading} />
-      </View>
     </ScrollView>
+  </ImageBackground>
   );
 }
 
@@ -186,30 +184,15 @@ const doSubmit = (values, setLoading, navigation) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  imageBackground: {
     flex: 1,
-    backgroundColor: "#FAFAFA",
+    justifyContent: "center"
   },
   content: {
     margin: 20,
-  },
-  title: {
-    color: "#3F3232",
-    fontSize: 22,
-    marginTop: 10,
-  },
-  subtitle: {
-    color: "#798A9B",
-    fontSize: 14,
-    marginBottom: 10,
-  },
-  input: {
-    marginLeft: 0,
-    marginVertical: 10,
-    borderBottomWidth: 0,
+    marginBottom:1,
+    backgroundColor:"#FAFAFA",
     borderRadius: 10,
-    backgroundColor: "#FFF",
-    color: "#798A9B",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -217,14 +200,42 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
-    elevation: 5,
+    elevation: 10,
+  },
+  title: {
+    fontWeight:"bold",
+    color: "#3F3232",
+    fontSize: 22,
+    marginTop: 10,
+    marginLeft:20
+  },
+  subtitle: {
+    color: Colors.shadowGray,
+    fontSize: 14,
+    marginBottom: 10,
+    alignSelf: "center",
+    width:"90%"
+  },
+  input: {
+    alignSelf: "center",
+    width:"90%",
+    marginLeft: 0,
+    marginVertical: 10,
+    borderBottomWidth: 0,
+    borderRadius: 10,
+    backgroundColor: Colors.white,
+    color: Colors.shadowGray,
+    ...shadowCode,
   },
   datepicker: {
     marginVertical: 10,
   },
   button: {
-    marginTop: 20,
     marginHorizontal: 60,
+    marginBottom: 20,
+    marginTop:20,
+    width:"65%",
+    alignSelf:"center"
   },
   buttonSubmitText: {
     fontSize: 20,

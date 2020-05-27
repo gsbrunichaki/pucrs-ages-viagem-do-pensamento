@@ -1,4 +1,11 @@
-import {firestore, auth} from '../lib/firebase';
+import { firestore, auth } from '../lib/firebase';
+import { decode, encode } from 'base-64';
+
+if (!global.btoa)
+  global.btoa = encode 
+
+if (!global.atob)
+  global.atob = decode 
 
 class User {
   constructor() {
@@ -14,6 +21,12 @@ class User {
       .get();
 
     this.user = user.data();
+  }
+
+  async getUserData() {
+    const user = await firestore.collection('/users').doc(this.uid).get();
+    console.log(this.uid)
+    return user.data();
   }
 
   async logout() {
@@ -39,6 +52,15 @@ class User {
     const userCredential = await this.auth.createUserWithEmailAndPassword(body.email, password);
 
     return await this.firestore.collection("users").doc(userCredential.user.uid).set(body);
+  }
+
+  async update(userSchema, userid) {
+    const body = userSchema.getBody();
+    console.log("Cheguei aqui", userSchema, "ID do Usuario:", userid)
+
+    return await this.firestore.collection("users").doc(userid).set(body);
+
+
   }
 
 }

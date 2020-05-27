@@ -2,6 +2,7 @@ import React from "react";
 
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
+import Colors from "../assets/Colors/Colors";
 
 const IconTextButton = ({ title, subtitle, image, onPress }) => {
   return (
@@ -24,9 +25,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
     borderRadius: 20,
-    backgroundColor: "#2C73D5",
+    backgroundColor: Colors.brightNavyBlue,
     justifyContent: "space-evenly",
-    elevation: 5,
+    elevation: 3,
     marginBottom: 30
   },
   image: {
@@ -39,14 +40,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   title: {
-    color: "#FFF",
+    color: Colors.white,
     fontSize: 20,
     marginVertical: 10,
     marginBottom: 10,
     fontWeight: "bold"
   },
   subtitle: {
-    color: "#FFF",
+    color: Colors.white,
     fontSize: 14,
     marginBottom: -10
   },
