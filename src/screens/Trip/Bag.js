@@ -3,6 +3,7 @@ import { View, ImageBackground, StyleSheet, ScrollView } from "react-native";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import PageBanner from "../../components/PageBanner";
 import { Text, Button, Item, Input } from "native-base";
+import Colors from "../../assets/Colors/Colors";
 
 export default function Bag({ route, navigation }) {
   const { aircraft } = route.params;
