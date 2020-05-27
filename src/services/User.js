@@ -25,7 +25,6 @@ class User {
 
   async getUserData() {
     const user = await firestore.collection('/users').doc(this.uid).get();
-    console.log(this.uid)
     return user.data();
   }
 
@@ -56,11 +55,8 @@ class User {
 
   async update(userSchema, userid) {
     const body = userSchema.getBody();
-    console.log("Cheguei aqui", userSchema, "ID do Usuario:", userid)
 
     return await this.firestore.collection("users").doc(userid).set(body);
-
-
   }
 
 }
