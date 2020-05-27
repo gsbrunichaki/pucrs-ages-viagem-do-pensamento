@@ -4,7 +4,6 @@ import {
   Card,
   CardItem,
   Body,
-  Container,
   Content,
   Text,
 } from "native-base";
@@ -67,7 +66,7 @@ export default function Islands({route, navigation}) {
                 <CardItem style={styles.cardItem}>
                   <Body style={styles.cardBody}>
                     <ImageBackground style={styles.image} source={island}>
-                      <Image style={{alignSelf: "center", marginVertical: "20%", opacity: 1, tintColor: null}} source={item.image} />
+                      <Image style={{alignSelf: "center", marginVertical: "20%"}} source={item.image} />
                     </ImageBackground>
                     <Text style={styles.imageTitle}>{item.title}</Text>
                   </Body>
@@ -142,8 +141,6 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     marginBottom: 10,
-    opacity: 0.5,
-    tintColor: Colors.brightNavyBlue,
   },
   imageTitle: {
     fontSize: 18,
