@@ -17,7 +17,7 @@ export default function Login({ navigation, setLogged }) {
 
         <Item style={styles.inputSpacing}>
           <Input
-            placeholder="E-mail" 
+            placeholder="Usuário" 
             style={styles.input}
             keyboardType={"email-address"}
             onChangeText={value => { setEmail(value) }} />
