@@ -12,7 +12,7 @@ export default class PageBanner extends Component {
     return (
       <View style={styles.cardTitle}>
         <Text style={styles.title}> {this.props.title} </Text>
-        <Text style={styles.Subtitle}> {this.props.subtitle} </Text>
+        { this.props.subtitle && <Text style={styles.subtitle}> {this.props.subtitle} </Text>}
       </View>
     );
   }
@@ -20,19 +20,23 @@ export default class PageBanner extends Component {
 
 const styles = StyleSheet.create({
   cardTitle: {
-    height: 125,
-    backgroundColor: Colors.white,
-    borderRadius: 20,
+    width: "95%",
+    height: 105,
+    backgroundColor: "#fff",
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
     justifyContent: "center",
     paddingLeft: 30,
+    marginTop: 20
   },
   title: {
     color: Colors.coffee,
     fontSize: 22,
     textAlign: "left",
+    fontWeight: "bold",
   },
-  Subtitle: {
-    color: Colors.shadowGray,
+  subtitle: {
+    color: "#798A9B",
     fontSize: 14,
   }
 });

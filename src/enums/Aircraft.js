@@ -1,5 +1,5 @@
 export default {
-    PAST: 'past',
-    PRESENT: 'present',
-    FUTURE: 'future'
+    PAST: 'Passado',
+    PRESENT: 'Presente',
+    FUTURE: 'Futuro'
 }
