@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import AircraftEnum from "../../enums/Aircraft";
 import PageBanner from "../../components/PageBanner";
