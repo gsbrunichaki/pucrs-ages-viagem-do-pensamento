@@ -1,19 +1,19 @@
 import React from "react";
-import { Content, Button, Text } from "native-base";
+import { View, Button, Text } from "native-base";
 import {StyleSheet} from "react-native";
 import UserService from "../services/User";
 import IconTextButton from "../components/IconTextButton";
 import CloudImageBackground from "../components/CloudImageBackground";
-
+import PageBanner from "../components/PageBanner";
 
 export default function Home({ navigation, setLogged }) {
 
   return (
     <CloudImageBackground>
-      <Content style={
-        styles.contStyle
-      }>
-        <Text style={styles.textStyle}>Bem-vindo(a) à Viagem do Pensamento!</Text>
+      <PageBanner title={'Bem-vindo(a) à Viagem do Pensamento!'} />
+
+      <View style={styles.contStyle}>
+        <Text style={styles.textStyle}></Text>
 
         <IconTextButton title="Viajar"
           subtitle="Faça sua viagem"
@@ -32,12 +32,11 @@ export default function Home({ navigation, setLogged }) {
           onPress={_ => { navigation.navigate("Passaporte") }}
           image={require("../assets/cloud-icon.png")} />
 
-        <Button 
-          onPress={() => { UserService.logout(); setLogged(false); }}>
-          <Text style={styles.textStyle}>Deslogar</Text>
+        <Button onPress={() => { UserService.logout(); setLogged(false); }}>
+          <Text style={styles.textStyle}>Sair</Text>
         </Button>
 
-      </Content>
+      </View>
     </CloudImageBackground>
   );
 }
@@ -45,13 +44,13 @@ export default function Home({ navigation, setLogged }) {
 const styles = StyleSheet.create({
   contStyle:{
     padding: 15,
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center"
   },
   textStyle:{
     fontWeight: "bold",
-    alignSelf: "center",
     fontSize: 18,
-    marginTop: 15,
-    marginBottom: 15,
   },
   buttonStyle:{
 
