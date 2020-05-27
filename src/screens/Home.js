@@ -19,15 +19,14 @@ export default function Home({ navigation, setLogged }) {
 
         <IconTextButton title="Tutorial"
           subtitle="Aprenda a utilizar o aplicativo."
-          onPress={_ => { navigation.navigate("") }}
+          onPress={(_) => {
+            alert("Tutorial em construção...");
+          }}
           image={require("../assets/cloud-icon.png")} />
 
         <IconTextButton title="Passaporte"
           subtitle="Ver informações salvas sobre você."
-          // onPress={_ => { navigation.navigate("") }}
-          onPress={(_) => {
-            alert("Tutorial em construção...");
-          }}
+          onPress={_ => { navigation.navigate("Passaporte") }}
           image={require("../assets/cloud-icon.png")} />
 
         <Button onPress={() => { UserService.logout(); setLogged(false); }}>
