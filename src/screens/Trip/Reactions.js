@@ -66,18 +66,7 @@ export default function Reactions({ route, navigation }) {
               </View>
             }
           </Card>
-          <Content style={style.feedback}>
-            {autoAnalysis === "up" &&
-              <View style={style.positiveBox}>
-                <Text style={style.feedbackText}>Esse é o feedback da ação selecionada no botão acima. Tem função de dar um retorno sobre a escolha da criança</Text>
-              </View>
-            }
-            {autoAnalysis === "down" &&
-              <View style={style.negativeBox}>
-                <Text style={style.feedbackText}>Esse é o feedback da ação selecionada no botão acima. Tem função de dar um retorno sobre a escolha da criança</Text>
-              </View>
-            }
-
+          <Content style={style.contentButton}>
             <Button full rounded style={style.button} title="Clique aqui para completar a sua viagem"
               onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: autoAnalysis === "up", behaviour }, { setLoading, loading }, navigation)}>
               <Text style={style.textButton}>Completar</Text>
@@ -97,13 +86,13 @@ const saveTrip = (trip, { setLoading, loading }, navigation) => {
 
   setLoading(true);
 
+  const { autoAnalysis } = trip;
   const schema = new TripSchema(trip);
-
+  
   TripService.create(schema)
     .then(_ => {
       setLoading(false);
-      navigation.navigate("Home")
-      Alert.alert("Sucesso", "Viagem criada com sucesso!");
+      Alert.alert("Sucesso", "Viagem criada com sucesso!", [{ onPress: () => navigation.navigate("TripFeedback", {autoAnalysis}) }]);
     })
     .catch(errorCode => {
       console.log(errorCode);
@@ -156,37 +145,10 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
   },
-  feedback: {
+  contentButton: {
     padding: 10,
     ...shadowCode,
     overflow: "visible",
-  },
-  feedbackText: {
-    color: "white",
-    fontSize: 22,
-    padding: 10,
-    paddingRight: 10,
-    paddingLeft: 10,
-  },
-  positiveBox: {
-    backgroundColor: Colors.caribbeanGreen,
-    borderRadius: 10,
-    shadowColor: Colors.shadowGray,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: -20,
-    elevation: -3,
-    zIndex: -1,
-  },
-  negativeBox: {
-    backgroundColor: Colors.lightOrange,
-    borderRadius: 10,
-    shadowColor: Colors.shadowGray,
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: -20,
-    elevation: -3,
-    zIndex: -1,
   },
   buttons: {
     flex: 1,

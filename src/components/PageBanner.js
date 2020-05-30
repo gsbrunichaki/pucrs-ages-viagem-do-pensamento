@@ -27,13 +27,16 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     justifyContent: "center",
     paddingLeft: 30,
+    paddingRight: 15,
     marginTop: 20
   },
   title: {
-    color: Colors.coffee,
+    display: "flex",
     fontSize: 22,
-    textAlign: "left",
     fontWeight: "bold",
+    lineHeight: 30,
+    textAlign: "left",
+    color: Colors.coffee,
   },
   subtitle: {
     color: "#798A9B",

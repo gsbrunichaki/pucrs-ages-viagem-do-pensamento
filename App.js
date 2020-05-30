@@ -17,6 +17,7 @@ import TripAircraft from './src/screens/Trip/Aircraft';
 import TripBag from './src/screens/Trip/Bag';
 import TripIslands from './src/screens/Trip/Islands';
 import TripReactions from './src/screens/Trip/Reactions';
+import TripFeedback from './src/screens/Trip/Feedback';
 import Colors from "./src/assets/Colors/Colors";
 import Perfil from './src/screens/Passport/Perfil';
 import Historico from './src/screens/Passport/Historico';
@@ -65,11 +66,10 @@ export default function App() {
     <Screen name="TripBag" component={TripBag} options={{ title: 'Mala de Pensamentos' }} />,
     <Screen name="TripIslands" component={TripIslands} options={{ title: 'Ilha das Emoções' }} />,
     <Screen name="TripReactions" component={TripReactions} options={{ title: 'Reações e Comportamento' }} />,
+    <Screen name="TripFeedback" component={TripFeedback} options={{ title: 'Feedback' }} />,
     <Screen name="Perfil" component={Perfil} options={{ title: 'Perfil do usuário' }} />,
     <Screen name="Historico" component={Historico} options={{ title: 'Histórico de viagens' }} />,
     <Screen name="Passaporte" component={Passaporte} options={{ title: 'Passaporte' }} />,
-    
-    
   ];
   
   if (!isFontLoaded) {
