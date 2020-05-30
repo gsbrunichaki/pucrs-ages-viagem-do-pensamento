@@ -92,7 +92,7 @@ const saveTrip = (trip, { setLoading, loading }, navigation) => {
   TripService.create(schema)
     .then(_ => {
       setLoading(false);
-      Alert.alert("Sucesso", "Viagem criada com sucesso!", [{ onPress: () => navigation.navigate("TripFeedback", {autoAnalysis}) }]);
+      navigation.navigate("TripFeedback", {autoAnalysis});
     })
     .catch(errorCode => {
       console.log(errorCode);
