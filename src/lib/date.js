@@ -71,4 +71,34 @@ export default class Date {
         var formattedTime = day + '/' + month + '/' + year;
         return formattedTime
     }
+
+    static getDMA(date) {
+        var day;
+        if(date.getDate() > 9)
+            day = date.getDate();
+        else
+            day = "0" + date.getDate();        
+
+        var month = (date.getMonth() + 1);
+        switch (month) {
+            case 1: month = "janeiro"; break;
+            case 2: month = "fevereiro"; break;
+            case 3: month = "março"; break;
+            case 4: month = "abril"; break;
+            case 5: month = "maio"; break;
+            case 6: month = "junho"; break;
+            case 7: month = "julho"; break;
+            case 8: month = "agosto"; break;
+            case 9: month = "setembro"; break;
+            case 10: month = "outubro"; break;
+            case 11: month = "novembro"; break;
+            case 12: month = "dezembro"; break;
+        }
+
+        var year = date.getFullYear();
+
+        var formattedTime = 'Dia ' + day + ' de ' + month + ' de ' + year;
+
+        return formattedTime
+    }
 }
