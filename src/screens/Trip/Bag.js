@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, ImageBackground, StyleSheet, ScrollView } from "react-native";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import PageBanner from "../../components/PageBanner";
-import { Text, Button, Item, Input } from "native-base";
+import { Content, Text, Button, Item, Input } from "native-base";
 import Colors from "../../assets/Colors/Colors";
 
 export default function Bag({ route, navigation }) {
@@ -12,6 +12,7 @@ export default function Bag({ route, navigation }) {
 
   return (
     <CloudImageBackground>
+      <Content>
       <Text> {aircraft} </Text>
       <PageBanner title={"Que pensamentos você levará na mala?"} />
       <View style={{ alignItems: "center" }}>
@@ -76,12 +77,13 @@ export default function Bag({ route, navigation }) {
         onPress={(_) => {
           navigation.navigate("TripIslands", {
             aircraft,
-            thoughts: [thought, "t2", "t3"],
+            thoughts: [thought],
           });
         }}
       >
         <Text>Continuar</Text>
       </Button>
+      </Content>
     </CloudImageBackground>
   );
 }

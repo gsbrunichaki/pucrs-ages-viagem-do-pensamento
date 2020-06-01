@@ -5,6 +5,6 @@ export default {
   shadowOpacity: 0.5,
   shadowOffset: {width: 0, height: 0},
   shadowRadius: 10,
-  elevation: 3,
+  elevation: 4,
   zIndex: 1,
 }

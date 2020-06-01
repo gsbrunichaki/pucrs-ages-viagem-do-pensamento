@@ -16,6 +16,7 @@ import Loading from "../../components/Loading";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import shadowCode from "../../components/shadowCode";
 import Colors from "../../assets/Colors/Colors";
+import PageBanner from "../../components/PageBanner";
 
 
 export default function Reactions({ route, navigation }) {
@@ -50,10 +51,7 @@ export default function Reactions({ route, navigation }) {
             </CardItem>
           </Card>
 
-          <Card transparent style={style.card}>
-            <CardItem header style={style.firstCardItem2}>
-              <Text style={style.mainText}>Como você acha que se comportou?</Text>
-            </CardItem>
+          <PageBanner title={"Como você acha que se comportou?"} />
             {autoAnalysis === null ?
               <View style={style.buttons}>
                 <TouchableOpacity style={style.thumbsUp} onPress={() => setAutoAnalysis("up")}><Emoji name="+1" style={{ fontSize: 60 }} /></TouchableOpacity>
@@ -65,7 +63,6 @@ export default function Reactions({ route, navigation }) {
                 <TouchableOpacity style={[style.thumbsDown, { borderColor: autoAnalysis === "down" ? 'black' : 'red' }]} onPress={() => setAutoAnalysis("down")} last active={autoAnalysis === "down"}><Emoji name="-1" style={{ fontSize: 60, borderColor: 'black' }} /></TouchableOpacity>
               </View>
             }
-          </Card>
           <Content style={style.contentButton}>
             <Button full rounded style={style.button} title="Clique aqui para completar a sua viagem"
               onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: autoAnalysis === "up", behaviour }, { setLoading, loading }, navigation)}>
