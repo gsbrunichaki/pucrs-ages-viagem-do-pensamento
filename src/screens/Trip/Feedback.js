@@ -12,40 +12,46 @@ export default function Feedback({ route, navigation }) {
 
   return (
     <Container style={style.container}>
-        <CloudImageBackground>
-          <View style={style.content}>
-            
-            <PageBanner title="Sua viagem foi registrada com sucesso!"/>
-            
-          { autoAnalysis ?
+      <CloudImageBackground>
+        <View style={style.content}>
+
+          <PageBanner title="Sua viagem foi registrada com sucesso!" />
+
+          {autoAnalysis ?
             <View style={style.feedback}>
-                <View style={style.positiveBox}>
-                    <Text style={style.feedbackText}>Esse é o feedback positivo da ação selecionada no botão. Tem função de dar um retorno sobre a escolha da criança</Text>
-                </View>
-                <Button full rounded style={style.button, {marginHorizontal: 60}} onPress={_ => navigation.navigate("Home")} title="Clique aqui para voltar ao menu inicial">
-                    <Text style={style.textButton}>Início</Text>
-                </Button>
+              <View style={style.positiveBox}>
+                <Text style={style.feedbackText}>
+                  Parabéns!
+                  Foi legal para você esta viagem do pensamento. Lembre-se de ter bons pensamentos, emoções confortáveis e agir com cuidado.
+                  </Text>
+              </View>
+              <Button full rounded style={style.button, { marginHorizontal: 60 }} onPress={_ => navigation.navigate("Home")} title="Clique aqui para voltar ao menu inicial">
+                <Text style={style.textButton}>Início</Text>
+              </Button>
             </View>
             :
             <View style={style.feedback}>
-                <View style={style.negativeBox}>
-                    <Text style={style.feedbackText}>Esse é o feedback negativo da ação selecionada no botão. Tem função de dar um retorno sobre a escolha da criança</Text>
-                </View>
+              <View style={style.negativeBox}>
+                <Text style={style.feedbackText}>
+                  Poxa... não foi desta vez que a viagem do pensamento foi legal.
+                  Lembre-se de ter bons pensamentos, emoções confortáveis e agir com cuidado.
+                </Text>
+              </View>
 
-                <PageBanner title="Você deseja realizar uma nova a viagem?"/>
-                
-                <View style={style.buttonGroup}>
-                    <Button full rounded style={style.button} onPress={_ => navigation.navigate("TripAircraft")} title="Clique aqui para reiniciar a viagem">
-                        <Text style={style.textButton}>Sim</Text>
-                    </Button>
-                    <Button full rounded style={style.button} onPress={_ => navigation.navigate("Home")} title="Clique aqui para voltar ao menu inicial">
-                        <Text style={style.textButton}>Não</Text>
-                    </Button>
-                </View>
+              <PageBanner title="Vamos refazer?" />
+
+              <View style={style.buttonGroup}>
+                <Button full rounded style={style.button} onPress={_ => navigation.navigate("TripAircraft")} title="Clique aqui para reiniciar a viagem">
+                  <Text style={style.textButton}>Sim</Text>
+                </Button>
+                <Button full rounded style={style.button} onPress={_ => navigation.navigate("Home")} title="Clique aqui para voltar ao menu inicial">
+                  <Text style={style.textButton}>Não</Text>
+                </Button>
+              </View>
             </View>
           }
-          </View>
-        </CloudImageBackground>
+        </View>
+      </CloudImageBackground>
     </Container>
   );
 }
