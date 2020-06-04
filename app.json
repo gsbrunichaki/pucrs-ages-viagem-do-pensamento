@@ -28,6 +28,11 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "br.com.pucrs.viagemdopensamento.app",
+      "icon": "./src/assets/appIcon.png",
+      "versionCode": 1
     }
   }
 }
