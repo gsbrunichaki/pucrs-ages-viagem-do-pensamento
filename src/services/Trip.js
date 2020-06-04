@@ -13,7 +13,7 @@ const db = firebase.firestore();
 
 export default class TripService {
   static async getAll() {
-    const query = await getCollectionScope().get();
+    const query = await getCollectionScope().orderBy("createDate", "desc").get();
     const trips = [];
 
     query.forEach(doc => {

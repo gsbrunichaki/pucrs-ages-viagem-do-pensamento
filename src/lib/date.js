@@ -72,7 +72,7 @@ export default class Date {
         return formattedTime
     }
 
-    static getDMA(date) {
+    static getDiaMesAno(date) {
         var day;
         if(date.getDate() > 9)
             day = date.getDate();

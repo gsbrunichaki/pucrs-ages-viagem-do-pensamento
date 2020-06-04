@@ -52,24 +52,37 @@ export default function Reactions({ route, navigation }) {
           </Card>
 
           <PageBanner title={"Como você acha que se comportou?"} />
-            {autoAnalysis === null ?
-              <View style={style.buttons}>
-                <TouchableOpacity style={style.thumbsUp} onPress={() => setAutoAnalysis("up")}><Emoji name="+1" style={{ fontSize: 60 }} /></TouchableOpacity>
-                <TouchableOpacity style={style.thumbsDown} onPress={() => setAutoAnalysis("down")}><Emoji name="-1" style={{ fontSize: 60 }} /></TouchableOpacity>
-              </View>
-              :
-              <View style={style.buttons}>
-                <TouchableOpacity style={[style.thumbsUp, { borderColor: autoAnalysis === "up" ? 'black' : 'green' }]} onPress={() => setAutoAnalysis("up")} first active={autoAnalysis === "up"}><Emoji name="+1" style={{ fontSize: 60, borderColor: 'black' }} /></TouchableOpacity>
-                <TouchableOpacity style={[style.thumbsDown, { borderColor: autoAnalysis === "down" ? 'black' : 'red' }]} onPress={() => setAutoAnalysis("down")} last active={autoAnalysis === "down"}><Emoji name="-1" style={{ fontSize: 60, borderColor: 'black' }} /></TouchableOpacity>
-              </View>
-            }
-          <Content style={style.contentButton}>
-            <Button full rounded style={style.button} title="Clique aqui para completar a sua viagem"
-              onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: autoAnalysis === "up", behaviour }, { setLoading, loading }, navigation)}>
-              <Text style={style.textButton}>Completar</Text>
-            </Button>
-          </Content>
-
+          {autoAnalysis === null ?
+            <View style={style.buttons}>
+              <TouchableOpacity
+                style={style.thumbsUp}
+                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: true, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}>
+                  <Emoji name="+1" style={{ fontSize: 60 }} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={style.thumbsDown}
+                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: false, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}>
+                  <Emoji name="-1" style={{ fontSize: 60 }} />
+              </TouchableOpacity>
+            </View>
+            :
+            <View style={style.buttons}>
+              <TouchableOpacity
+                style={[style.thumbsUp, { borderColor: autoAnalysis === "up" ? 'black' : 'green' }]}
+                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: true, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}>
+                first
+                active={autoAnalysis === "up"}>
+                  <Emoji name="+1" style={{ fontSize: 60, borderColor: 'black' }} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[style.thumbsDown, { borderColor: autoAnalysis === "down" ? 'black' : 'red' }]}
+                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: false, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}>
+                last
+                active={autoAnalysis === "down"}>
+                  <Emoji name="-1" style={{ fontSize: 60, borderColor: 'black' }} />
+              </TouchableOpacity>
+            </View>
+          }
           <Loading loading={loading} />
         </Content>
       </CloudImageBackground>
@@ -77,7 +90,7 @@ export default function Reactions({ route, navigation }) {
   );
 }
 
-const saveTrip = (trip, { setLoading, loading }, navigation) => {
+const saveTrip = (trip, setAutoAnalysis, { setLoading, loading }, navigation) => {
   if (loading)
     return;
 
@@ -85,11 +98,14 @@ const saveTrip = (trip, { setLoading, loading }, navigation) => {
 
   const { autoAnalysis } = trip;
   const schema = new TripSchema(trip);
-  
+
+  const autoAnalysisValue = autoAnalysis ? "up" : "down";
+  setAutoAnalysis(autoAnalysisValue);
+
   TripService.create(schema)
     .then(_ => {
       setLoading(false);
-      navigation.navigate("TripFeedback", {autoAnalysis});
+      navigation.navigate("TripFeedback", { autoAnalysis });
     })
     .catch(errorCode => {
       console.log(errorCode);
@@ -132,20 +148,8 @@ const style = StyleSheet.create({
     padding: 30,
     ...shadowCode
   },
-  textButton: {
-    marginTop: 1,
-    marginHorizontal: 60,
-    color: Colors.white,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
   container: {
     backgroundColor: Colors.white,
-  },
-  contentButton: {
-    padding: 10,
-    ...shadowCode,
-    overflow: "visible",
   },
   buttons: {
     flex: 1,
@@ -154,6 +158,7 @@ const style = StyleSheet.create({
     paddingTop: 30,
     paddingRight: 40,
     paddingLeft: 40,
+    marginBottom: 20,
     ...shadowCode,
   },
   content: {

@@ -37,7 +37,6 @@ export default function Feedback({ route, navigation }) {
                   Lembre-se de ter bons pensamentos, emoções confortáveis e agir com cuidado.
                 </Text>
               </View>
-
               <PageBanner title="Vamos refazer?" />
 
               <View style={style.buttonGroup}>
