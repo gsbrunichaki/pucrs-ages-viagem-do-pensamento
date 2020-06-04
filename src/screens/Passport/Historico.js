@@ -3,18 +3,19 @@ import { ScrollView } from "react-native";
 import TripService from "../../services/Trip";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import HistryTripCard from "../../components/HistoryTripCard";
+import Loading from "../../components/Loading";
 
 export default function Historico({ navigation }) {
   const [trips, setTrips] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true)
     TripService.getAll()
       .then(trip => setTrips(trip))
       .catch(err => console.error(err))
+      .finally(_=> setLoading(false));
   }, []);
-
-  //A princpio, a variavel `trips` já tem o histórico de todas as viagens deste usuário
-  //A partir desta variável, vocês devem fazer um forEach para demonstrar todos os valores desta variável
 
   return (
     <CloudImageBackground>
@@ -23,6 +24,7 @@ export default function Historico({ navigation }) {
           return <HistryTripCard trip={trip.body}/>
         })}
       </ScrollView>
+      <Loading loading={loading} />
     </CloudImageBackground>
   );
 }

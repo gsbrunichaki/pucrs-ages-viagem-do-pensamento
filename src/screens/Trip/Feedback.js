@@ -32,7 +32,7 @@ export default function Feedback({ route, navigation }) {
                     <Text style={style.feedbackText}>Esse é o feedback negativo da ação selecionada no botão. Tem função de dar um retorno sobre a escolha da criança</Text>
                 </View>
 
-                <PageBanner title="Você deseja realizar uma nova a viagem?"/>
+                <PageBanner title="Você deseja realizar uma nova viagem?"/>
                 
                 <View style={style.buttonGroup}>
                     <Button full rounded style={style.button} onPress={_ => navigation.navigate("TripAircraft")} title="Clique aqui para reiniciar a viagem">

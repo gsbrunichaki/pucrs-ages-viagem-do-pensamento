@@ -66,7 +66,7 @@ export default function App() {
     <Screen name="TripBag" component={TripBag} options={{ title: 'Mala de Pensamentos' }} />,
     <Screen name="TripIslands" component={TripIslands} options={{ title: 'Ilha das Emoções' }} />,
     <Screen name="TripReactions" component={TripReactions} options={{ title: 'Reações e Comportamento' }} />,
-    <Screen name="TripFeedback" component={TripFeedback} options={{ title: 'Feedback' }} />,
+    <Screen name="TripFeedback" component={TripFeedback} options={{ title: 'Feedback', headerLeft: null }} />,
     <Screen name="Perfil" component={Perfil} options={{ title: 'Perfil do usuário' }} />,
     <Screen name="Historico" component={Historico} options={{ title: 'Histórico de viagens' }} />,
     <Screen name="Passaporte" component={Passaporte} options={{ title: 'Passaporte' }} />,

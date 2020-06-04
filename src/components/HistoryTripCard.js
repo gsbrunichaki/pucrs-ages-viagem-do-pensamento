@@ -13,7 +13,7 @@ export default class HistoryTrip extends Component {
     return (
       <React.Fragment>
         <Card style={styles.cardDate}>
-          <Text style={styles.textDate}>{DateLib.getDMA(trip.createDate.toDate())}</Text>
+          <Text style={styles.textDate}>{DateLib.getDiaMesAno(trip.createDate.toDate())}</Text>
         </Card>
         <View style={styles.content}>
           <Card style={styles.card}>
@@ -36,6 +36,7 @@ export default class HistoryTrip extends Component {
                 <FlatList
                   numColumns={1}
                   data={trip.thoughts}
+                  listKey={(item, index) => 'thougth' + index.toString()}
                   renderItem={({ item }) => <Text style={styles.title}>{item}</Text>}
                   style={{ overflow: "visible" }}
                 />
@@ -64,7 +65,7 @@ export default class HistoryTrip extends Component {
 
 const styles = StyleSheet.create({
   content: {
-    padding: 10
+    paddingHorizontal: 14
   },
   card: {
     padding: 15,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   cardItemContent: {
-    padding: 5
+    padding: 5,
   },
   cardItem: {
     flexDirection: 'column',
