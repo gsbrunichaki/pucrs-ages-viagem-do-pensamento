@@ -3,6 +3,7 @@ import DateLib from "../lib/date"
 
 export default new Schema({
     name: { type: String  },
+    city: { type: String  },
     childrenName: { type: String  },
     childrenBirthday: { type: String, set: (value) => {
         return DateLib.dmY2Ymd(DateLib.formatDate(value))
