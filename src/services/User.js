@@ -41,6 +41,10 @@ class User {
     return this.auth.currentUser ? this.auth.currentUser.uid : null;
   }
 
+  get email() {
+    return this.auth.currentUser ? this.auth.currentUser.email : null;
+  }
+
   async login(email, password) {
     await this.auth.signInWithEmailAndPassword(email, password);
   }

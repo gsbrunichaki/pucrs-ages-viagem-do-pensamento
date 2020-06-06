@@ -10,6 +10,7 @@ export default function Perfil({ navigation }) {
 
   const [user, setUser] = useState(null);
   const [name, setName] = useState(null);
+  const [city, setCity] = useState(null);
   const [email, setEmail] = useState(null);
   const [childrenName, setChildrenName] = useState(null);
   const [childrenGender, setChildrenGender] = useState(null);
@@ -19,7 +20,8 @@ export default function Perfil({ navigation }) {
     name,
     childrenGender,
     childrenName,
-    childrenBirthday
+    childrenBirthday,
+    city
   };
 
   useEffect(() => {
@@ -27,6 +29,7 @@ export default function Perfil({ navigation }) {
       .then(u => {
         setUser(u);
         setName(u.name);
+        setCity(u.city);
         setEmail(u.email);
         setChildrenName(u.childrenName);
         setChildrenGender(u.childrenGender);
@@ -37,6 +40,8 @@ export default function Perfil({ navigation }) {
         Alert.alert("Erro", "Ocorreu um erro ao ler os dados cadastrais do seu perfil");
       })
   }, []);
+
+  console.log("email?", UserService.email);
 
   return (
     <ImageBackground source={require("../../assets/cloud-background.png")}
@@ -49,19 +54,21 @@ export default function Perfil({ navigation }) {
               <Text style={styles.title}>Perfil do Responsável</Text>
               <Text style={styles.subtitle}>Insira abaixo os dados da pessoa responsável pela criança</Text>
             </View>
+            <Label style={{ marginBottom: 10, color: "#8E8E8E" }}>Nome:</Label>
             <Item style={styles.inputSpacing}>
               <Input style={styles.input} placeholder={"Ex: Pedro Henrique"}
                 defaultValue={name}
                 onChangeText={value => setName(value)} />
             </Item>
-            {/*<Item style={styles.inputSpacingBlocked}>
-              <Input style={styles.input} placeholder={"Ex: crianca@viagemdopensamento.com.br"}
-                defaultValue={email}
-
-                onChangeText={value => setEmail(value)} />
-            </Item>*/}
+            <Label style={{ marginBottom: 10, color: "#8E8E8E" }}>Cidade:</Label>
             <Item style={styles.inputSpacing}>
-              <Input style={styles.input} placeholder={"*******"} />
+              <Input style={styles.input} placeholder={"Ex: Porto Alegre"}
+                defaultValue={city}
+                onChangeText={value => setCity(value)} />
+            </Item>
+            <Label style={{ marginBottom: 10, color: "#8E8E8E" }}>E-mail:</Label>
+            <Item style={styles.inputSpacing}>
+              <Input style={styles.inputLocked} defaultValue={UserService.email} disabled={true}/>
             </Item>
           </Card>
 
@@ -72,33 +79,34 @@ export default function Perfil({ navigation }) {
                 <Text style={styles.subtitle}>{'Insira abaixo os dados da criança'}</Text>
               </View>
             </View>
+            <Label style={{ marginBottom: 10, color: "#8E8E8E" }}>Nome:</Label>
             <Item style={styles.inputSpacing}>
               <Input style={styles.input} placeholder={"Nome da criança"}
                 defaultValue={childrenName}
                 onChangeText={value => setChildrenName(value)} />
             </Item>
-
+            <Label style={{ marginBottom: 10, color: "#8E8E8E" }}>Gênero:</Label>
             {childrenGender && <Item style={styles.inputSpacing}>
               <Picker note
                 mode="dropdown"
                 selectedValue={childrenGender}
-
+                style={{ color: '#000' }}
                 onValueChange={value => setChildrenGender(value)}>
                 <Picker.Item label="Masculino" value="masculino" />
-                <Picker.Item label="Feminino" value="feminino" />
+                <Picker.Item label="Feminino" value="feminino"/>
                 <Picker.Item label="Outro" value="outro" />
               </Picker>
+
             </Item>}
-            <View style={[styles.datepicker, { marginTop: 20, color: "#ccc" }]}>
-              <Label style={{ color: "#575757" }}>Data de nascimento:</Label>
+            
+            <View style={[styles.datepicker]}>
+              <Label style={{ color: "#8E8E8E" }}>Data de nascimento:</Label>
               {childrenBirthday !== null &&
               <DatePicker
                 defaultDate={childrenBirthday}
                 minimumDate={new Date(1900, 1, 1)}
                 maximumDate={new Date()}
                 androidMode={"spinner"}
-                textStyle={{ color: "green" }}
-                placeHolderTextStyle={{ color: "#d3d3d3" }}
                 onDateChange={setChildrenBirthday}
                 disabled={false}
               />}
@@ -118,8 +126,6 @@ export default function Perfil({ navigation }) {
 }
 
 const doSubmit = (values, navigation) => {
-  /*const { childrenBirthday } = values;
-  values.childrenBirthday = LibDate.dmY2Ymd(LibDate.formatDate(childrenBirthday));*/
   const userSchema = new UserSchema(values);
 
   UserService.update(userSchema, UserService.uid)
@@ -129,7 +135,6 @@ const doSubmit = (values, navigation) => {
           {
             text: "OK",
             onPress: () => {
-              //navigation.navigate("Home");
             },
           },
         ],
@@ -138,7 +143,7 @@ const doSubmit = (values, navigation) => {
     })
     .catch(error => {
       Alert.alert("Erro", error.toString(),
-        [{ text: "OK"/*, onPress: () => setLoading(false) */}],
+        [{ text: "OK"}],
         { cancelable: false })
     });
 };
@@ -146,6 +151,7 @@ const doSubmit = (values, navigation) => {
 const styles = StyleSheet.create({
   datepicker: {
     marginVertical: 10,
+    color: "#000"
   },
   imageBackground: {
     flex: 1,
@@ -221,6 +227,27 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 10,
   },
+  inputLocked: {
+    backgroundColor: "#C7C7C7",
+    padding: 1,
+    textAlign: "left",
+    color: "#777777",
+    borderRadius: 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    fontSize: 18,
+    
+    borderRadius: 10,
+    elevation: 10,
+  },
+
   title: {
     color: "#3F3232",
     fontSize: 22,
