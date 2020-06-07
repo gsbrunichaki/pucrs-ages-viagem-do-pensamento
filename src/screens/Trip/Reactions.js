@@ -17,7 +17,7 @@ import CloudImageBackground from "../../components/CloudImageBackground";
 import shadowCode from "../../components/shadowCode";
 import Colors from "../../assets/Colors/Colors";
 import PageBanner from "../../components/PageBanner";
-
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function Reactions({ route, navigation }) {
   const [behaviour, setBehaviour] = useState("");
@@ -29,6 +29,7 @@ export default function Reactions({ route, navigation }) {
     <Container style={style.container}>
       <CloudImageBackground>
         <Content style={style.content}>
+          <Breadcrumb aircraft={aircraft} thoughts={thoughts} island={island} />
           <Card transparent style={style.firstCard}>
             <CardItem header style={style.firstCardItem}>
               <Text style={style.mainText}>
@@ -69,14 +70,14 @@ export default function Reactions({ route, navigation }) {
             <View style={style.buttons}>
               <TouchableOpacity
                 style={[style.thumbsUp, { borderColor: autoAnalysis === "up" ? 'black' : 'green' }]}
-                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: true, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}>
+                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: true, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}
                 first
                 active={autoAnalysis === "up"}>
                   <Emoji name="+1" style={{ fontSize: 60, borderColor: 'black' }} />
               </TouchableOpacity>
               <TouchableOpacity
                 style={[style.thumbsDown, { borderColor: autoAnalysis === "down" ? 'black' : 'red' }]}
-                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: false, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}>
+                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: false, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}
                 last
                 active={autoAnalysis === "down"}>
                   <Emoji name="-1" style={{ fontSize: 60, borderColor: 'black' }} />

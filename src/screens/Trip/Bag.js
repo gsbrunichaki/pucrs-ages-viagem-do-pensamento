@@ -4,6 +4,7 @@ import CloudImageBackground from "../../components/CloudImageBackground";
 import PageBanner from "../../components/PageBanner";
 import { Content, Text, Button, Item, Input } from "native-base";
 import Colors from "../../assets/Colors/Colors";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function Bag({ route, navigation }) {
   const { aircraft } = route.params;
@@ -13,76 +14,77 @@ export default function Bag({ route, navigation }) {
   return (
     <CloudImageBackground>
       <Content>
-      <Text> {aircraft} </Text>
-      <PageBanner title={"Que pensamentos você levará na mala?"} />
-      <View style={{ alignItems: "center" }}>
-        <ImageBackground
-          style={styles.shirt}
-          resizeMode="contain"
-          source={require("../../assets/shirt.png")}
-        >
-          <ScrollView>
-            <Text style={styles.text}> {thought} </Text>
-          </ScrollView>
-        </ImageBackground>
-      </View>
-      <Item style={styles.inputSpacing}>
-        <Input
-          value={thought}
-          placeholder="Pensamento"
-          style={styles.input}
-          onChangeText={(value) => {
-            setThought(value);
+        <Breadcrumb aircraft={aircraft} />
+
+        <PageBanner title={"Que pensamentos você levará na mala?"} />
+        <View style={{ alignItems: "center" }}>
+          <ImageBackground
+            style={styles.shirt}
+            resizeMode="contain"
+            source={require("../../assets/shirt.png")}
+          >
+            <ScrollView>
+              <Text style={styles.text}> {thought} </Text>
+            </ScrollView>
+          </ImageBackground>
+        </View>
+        <Item style={styles.inputSpacing}>
+          <Input
+            value={thought}
+            placeholder="Pensamento"
+            style={styles.input}
+            onChangeText={(value) => {
+              setThought(value);
+            }}
+          />
+        </Item>
+
+        <Button
+          style={[styles.button, styles.button1]}
+          full
+          rounded
+          onPress={() => {
+            setThought("Nossa, legal ");
           }}
-        />
-      </Item>
+        >
+          <Text>Nossa, legal</Text>
+        </Button>
 
-      <Button
-        style={[styles.button, styles.button1]}
-        full
-        rounded
-        onPress={() => {
-          setThought("Nossa, legal ");
-        }}
-      >
-        <Text>Nossa, legal</Text>
-      </Button>
+        <Button
+          style={[styles.button, styles.button2]}
+          full
+          rounded
+          onPress={() => {
+            setThought("Humm, Ok ");
+          }}
+        >
+          <Text>Humm, Ok.</Text>
+        </Button>
 
-      <Button
-        style={[styles.button, styles.button2]}
-        full
-        rounded
-        onPress={() => {
-          setThought("Humm, Ok ");
-        }}
-      >
-        <Text>Humm, Ok.</Text>
-      </Button>
+        <Button
+          style={[styles.button, styles.button3]}
+          full
+          rounded
+          onPress={() => {
+            setThought("Ah, não gostei ");
+          }}
+        >
+          <Text>Ah, não gostei...</Text>
+        </Button>
 
-      <Button
-        style={[styles.button, styles.button3]}
-        full
-        rounded
-        onPress={() => {
-          setThought("Ah, não gostei ");
-        }}
-      >
-        <Text>Ah, não gostei...</Text>
-      </Button>
-
-      <Button
-        style={[styles.button, styles.button4]}
-        full
-        rounded
-        onPress={(_) => {
-          navigation.navigate("TripIslands", {
-            aircraft,
-            thoughts: [thought],
-          });
-        }}
-      >
-        <Text>Continuar</Text>
-      </Button>
+        <Button
+          style={[styles.button, styles.button4]}
+          full
+          rounded
+          onPress={(_) => {
+            navigation.navigate("TripIslands", {
+              aircraft,
+              thoughts: [thought],
+            });
+          }}
+        >
+          <Text>Continuar</Text>
+        </Button>
       </Content>
     </CloudImageBackground>
   );
