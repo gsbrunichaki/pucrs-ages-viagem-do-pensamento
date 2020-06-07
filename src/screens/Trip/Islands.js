@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {Image, ImageBackground} from "react-native";
+import React, { useEffect } from "react";
+import { Image, ImageBackground } from "react-native";
 import {
   Card,
   CardItem,
@@ -7,13 +7,14 @@ import {
   Content,
   Text,
 } from "native-base";
-import {FlatList, StyleSheet} from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import IslandsEnum from "../../enums/Island";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import Colors from "../../assets/Colors/Colors";
 import shadowCode from "../../components/shadowCode";
+import Breadcrumb from "../../components/Breadcrumb";
 
 const island = require("../../assets/island.png");
 const islands = [
@@ -97,14 +98,15 @@ export default function Islands({ route, navigation }) {
 
   return (
     <CloudImageBackground style={styles.screen}>
-      <Content>
-      <Card transparent style={styles.headerCard}>
-        <CardItem header style={styles.headerCardItem}>
-          <Text style={styles.mainText}>
-            Como se sente em relação a este pensamento?
+      <Content>        
+        <Breadcrumb aircraft={aircraft} thoughts={thoughts} />
+        <Card transparent style={styles.headerCard}>
+          <CardItem header style={styles.headerCardItem}>
+            <Text style={styles.mainText}>
+              Como se sente em relação a este pensamento?
           </Text>
-        </CardItem>
-      </Card>
+          </CardItem>
+        </Card>
         <FlatList
           numColumns={2}
           data={islands}
