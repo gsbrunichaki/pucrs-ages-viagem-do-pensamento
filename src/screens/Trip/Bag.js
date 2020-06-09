@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, ImageBackground, StyleSheet, ScrollView } from "react-native";
+import { View, ImageBackground, StyleSheet, ScrollView, Alert } from "react-native";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import PageBanner from "../../components/PageBanner";
 import { Content, Text, Button, Item, Input } from "native-base";
@@ -76,18 +76,24 @@ export default function Bag({ route, navigation }) {
           style={[styles.button, styles.button4]}
           full
           rounded
-          onPress={(_) => {
-            navigation.navigate("TripIslands", {
-              aircraft,
-              thoughts: [thought],
-            });
-          }}
+          onPress={_=> verifyBag(aircraft, thought, navigation)}
         >
           <Text>Continuar</Text>
         </Button>
       </Content>
     </CloudImageBackground>
   );
+}
+
+const verifyBag = (aircraft, thought, navigation)=> {
+  if (thought === "") {
+    Alert.alert("Ops!", "Por favor, informe um pensamento!");
+    return;
+  }
+  navigation.navigate("TripIslands", {
+    aircraft,
+    thoughts: thought,
+  });
 }
 
 const styles = StyleSheet.create({

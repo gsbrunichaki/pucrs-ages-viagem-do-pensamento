@@ -91,9 +91,6 @@ export default function Islands({ route, navigation }) {
       return alert(
         "Thoughts (pensamentos) é obrigatório. Envie nos parameteros."
       );
-
-    if (!Array.isArray(thoughts))
-      return alert("Thoughts (pensamentos) precisa ser um array");
   }, [aircraft, thoughts]);
 
   return (

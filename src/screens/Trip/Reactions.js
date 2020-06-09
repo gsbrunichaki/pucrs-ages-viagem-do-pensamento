@@ -95,6 +95,11 @@ const saveTrip = (trip, setAutoAnalysis, { setLoading, loading }, navigation) =>
   if (loading)
     return;
 
+  if (trip.behaviour === "") {
+    Alert.alert("Ops!", "Informe seu comportamento!");
+    return;
+  }
+
   setLoading(true);
 
   const { autoAnalysis } = trip;
