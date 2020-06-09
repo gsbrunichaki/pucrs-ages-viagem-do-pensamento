@@ -36,8 +36,9 @@ export default function Register({ navigation }) {
     email,
     password,
     city,
-    childrenBirthday,
     childrenName,
+    gender,
+    childrenBirthday,
   };
 
   return (
@@ -146,14 +147,16 @@ export default function Register({ navigation }) {
 }
 
 const doSubmit = (values, setLoading, navigation) => {
-  const { childrenBirthday } = values;
+  const { password, childrenBirthday } = values;
+  
+  if (!validateFields(values)) return;
+
   values.childrenBirthday = LibDate.dmY2Ymd(
     LibDate.formatDate(childrenBirthday)
   );
 
   const userSchema = new UserSchema(values);
-  const { password } = values;
-
+  
   setLoading(true);
 
   UserService.create(userSchema, password)
@@ -182,6 +185,31 @@ const doSubmit = (values, setLoading, navigation) => {
       );
     });
 };
+
+const validateFields = (values) => {
+  const { name, city, childrenName, gender, childrenBirthday } = values;
+  if (!name) {
+    Alert.alert("Ops!", ErrorMessages["Error: Register/responsible-name"]);
+    return false;
+  }
+  if (!city) {
+    Alert.alert("Ops!", ErrorMessages["Error: Register/city"]);
+    return false;
+  }
+  if (!childrenName) {
+    Alert.alert("Ops!", ErrorMessages["Error: Register/children-name"]);
+    return false;
+  }
+  if (!gender) {
+    Alert.alert("Ops!", ErrorMessages["Error: Register/children-gender"]);
+    return false;
+  }
+  if (!childrenBirthday) {
+    Alert.alert("Ops!", ErrorMessages["Error: Register/children-birthday"]);
+    return false;
+  }
+  return true;
+}
 
 const styles = StyleSheet.create({
   imageBackground: {

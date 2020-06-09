@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Image, StyleSheet, View } from "react-native";
-import { Text, Card } from "native-base";
+import { Card } from "native-base";
+import Colors from "../assets/Colors/Colors";
 
 import MainLabel from "./MainLabel";
 
@@ -49,7 +50,7 @@ export default class Breadcrumb extends Component {
 const styles = StyleSheet.create({
   divider: {
     borderBottomWidth: 2,
-    borderBottomColor: "#F4F4F4",
+    borderBottomColor: Colors.whitish,
   },
   content: {
     paddingHorizontal: 10
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   image: {
     width: 20,
     height: 20,
-    tintColor: "#2C73D5",
+    tintColor: Colors.brightNavyBlue,
     resizeMode: "contain",
     marginRight: 10
   },
