@@ -9,7 +9,6 @@ import {
   Picker,
   Input,
   Text,
-  Content,
 } from "native-base";
 import Loading from "../components/Loading";
 
@@ -20,6 +19,7 @@ import LibDate from "../lib/date";
 import ErrorMessages from "../lib/errors";
 import Colors from "../assets/Colors/Colors";
 import shadowCode from "../components/shadowCode";
+import Genders from "../enums/Genders";
 
 export default function Register({ navigation }) {
   const [name, setName] = useState("");
@@ -27,7 +27,7 @@ export default function Register({ navigation }) {
   const [password, setPassword] = useState("");
   const [city, setCity] = useState("");
   const [childrenName, setChildrenName] = useState("");
-  const [gender, setGender] = useState("masculino");
+  const [childrenGender, setChildrenGender] = useState(Genders.MALE);
   const [childrenBirthday, setChildrenBirthday] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +37,7 @@ export default function Register({ navigation }) {
     password,
     city,
     childrenName,
-    gender,
+    childrenGender,
     childrenBirthday,
   };
 
@@ -104,13 +104,15 @@ export default function Register({ navigation }) {
               <Picker
                 note
                 mode="dropdown"
-                selectedValue={gender}
+                selectedValue={childrenGender}
                 style={{ width: "100%" }}
-                onValueChange={setGender}
+                onValueChange={(value) => {
+                  setChildrenGender(value);
+                }}
               >
-                <Picker.Item label="Masculino" value="masculino" />
-                <Picker.Item label="Feminino" value="feminino" />
-                <Picker.Item label="Outro" value="outro" />
+                <Picker.Item label="Masculino" value={Genders.MALE} />
+                <Picker.Item label="Feminino" value={Genders.FEMALE} />
+                <Picker.Item label="Outro" value={Genders.OTHER} />
               </Picker>
             </View>
             <View style={[styles.datepicker, { marginTop: 20, color: "#ccc", marginLeft: 20 }]}>
@@ -177,6 +179,7 @@ const doSubmit = (values, setLoading, navigation) => {
       );
     })
     .catch((errorCode) => {
+      console.log(errorCode)
       Alert.alert(
         "Erro",
         ErrorMessages[errorCode.toString()],
@@ -189,7 +192,7 @@ const doSubmit = (values, setLoading, navigation) => {
 };
 
 const validateFields = (values) => {
-  const { name, city, childrenName, gender, childrenBirthday } = values;
+  const { name, city, childrenName, childrenGender, childrenBirthday } = values;
   if (!name) {
     Alert.alert("Ops!", ErrorMessages["Error: Register/responsible-name"]);
     return false;
@@ -202,7 +205,7 @@ const validateFields = (values) => {
     Alert.alert("Ops!", ErrorMessages["Error: Register/children-name"]);
     return false;
   }
-  if (!gender) {
+  if (!childrenGender) {
     Alert.alert("Ops!", ErrorMessages["Error: Register/children-gender"]);
     return false;
   }
