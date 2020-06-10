@@ -41,8 +41,6 @@ export default function Perfil({ navigation }) {
       })
   }, []);
 
-  console.log("email?", UserService.email);
-
   return (
     <ImageBackground source={require("../../assets/cloud-background.png")}
       style={styles.imageBackground0}
