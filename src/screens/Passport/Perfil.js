@@ -86,7 +86,7 @@ export default function Perfil({ navigation }) {
                 onChangeText={value => setChildrenName(value)} />
             </Item>
             <Label style={{ marginBottom: 10, color: "#8E8E8E" }}>Gênero:</Label>
-            {childrenGender && <Item style={styles.inputSpacing}>
+            {childrenGender &&
               <Picker note
                 mode="dropdown"
                 selectedValue={childrenGender}
@@ -96,8 +96,7 @@ export default function Perfil({ navigation }) {
                 <Picker.Item label="Feminino" value="feminino"/>
                 <Picker.Item label="Outro" value="outro" />
               </Picker>
-
-            </Item>}
+            }
             
             <View style={[styles.datepicker]}>
               <Label style={{ color: "#8E8E8E" }}>Data de nascimento:</Label>
