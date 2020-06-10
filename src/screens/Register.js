@@ -183,6 +183,8 @@ const doSubmit = (values, setLoading, navigation) => {
         [{ text: "OK", onPress: () => setLoading(false) }],
         { cancelable: false }
       );
+    }).finally(_=> {
+      setLoading(false);
     });
 };
 
