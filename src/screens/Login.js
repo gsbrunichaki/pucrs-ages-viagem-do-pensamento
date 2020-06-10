@@ -72,6 +72,8 @@ const doSubmitLogin = (values, setLoading, setLogged) => {
          }},
       ],
       { cancelable: false })
+  }).finally(_=> {
+    setLoading(false);
   });
 }
 
