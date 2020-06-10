@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import {Image, StyleSheet, FlatList, View} from "react-native";
-import {Text, Card, Item } from "native-base";
+import {Image, StyleSheet, View} from "react-native";
+import {Text, Card } from "native-base";
 import DateLib from "../lib/date"
+import Colors from "../assets/Colors/Colors";
 
 export default class HistoryTrip extends Component {
   constructor(props) {
@@ -17,44 +18,47 @@ export default class HistoryTrip extends Component {
         </Card>
         <View style={styles.content}>
           <Card style={styles.card}>
+            
             <View style={styles.cardItemContent}>
-              {
-                trip.autoAnalysis ?
-                <Image source={require("../assets/Bad.png")} style={styles.checkmarkbad} />
-                :
-                <Image source={require("../assets/Good.png")} style={styles.checkmarkgood} />
-              }
-              <Item style={styles.cardItem2}>
+              
                 <Image source={require("../assets/Plane.png")} style={styles.image} />
                 <Text style={styles.title}>{trip.aircraft}</Text>
-              </Item>
+                
+                <View style={styles.contentAutoAnalisys}>
+                    {
+                      trip.autoAnalysis ?
+                      <Image source={require("../assets/Bad.png")} style={styles.checkmarkbad} />
+                      :
+                      <Image source={require("../assets/Good.png")} style={styles.checkmarkgood} />
+                    }
+                  </View>
             </View>
+
+            <View style={styles.divider}></View>
 
             <View style={[styles.cardItemContent]}>
-              <Item style={styles.cardItem2}>
+              
                 <Image source={require("../assets/Thought.png")} style={styles.image} />
-                <FlatList
-                  numColumns={1}
-                  data={trip.thoughts}
-                  listKey={(item, index) => 'thougth' + index.toString()}
-                  renderItem={({ item }) => <Text style={styles.title}>{item}</Text>}
-                  style={{ overflow: "visible" }}
-                />
-              </Item>
+                <Text style={styles.title}>{trip.thoughts}</Text>
+              
             </View>
+
+            <View style={styles.divider}></View>
 
             <View style={styles.cardItemContent}> 
-              <Item style={styles.cardItem2}>
+              
                 <Image source={require("../assets/Emotion.png")} style={styles.image} />
                 <Text style={styles.title}>{trip.island}</Text>
-              </Item>
+              
             </View>
 
+            <View style={styles.divider}></View>
+
             <View style={styles.cardItemContent}>
-              <Item style={styles.cardItem2}>
+              
                 <Image source={require("../assets/Action.png")} style={styles.image} />
                 <Text style={styles.title}>{trip.behaviour}</Text>
-              </Item>
+              
             </View>
           </Card>
         </View>
@@ -64,12 +68,19 @@ export default class HistoryTrip extends Component {
 }
 
 const styles = StyleSheet.create({
+  divider: {
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.whitish,
+  },
   content: {
-    paddingHorizontal: 14
+    paddingHorizontal: 10
+  },
+  contentAutoAnalisys: {
+    flex: 1,
+    alignItems: "flex-end",
   },
   card: {
-    padding: 15,
-    marginBottom: 15,
+    paddingHorizontal: 15,
     borderRadius: 10,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -77,13 +88,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   cardItemContent: {
-    padding: 5,
+    flexDirection: 'row',
+    padding: 15,
+    alignItems: 'center'
   },
   cardItem: {
     flexDirection: 'column',
-  },
-  cardItem2: {
-    flexDirection: 'row',
   },
   cardDate: {
     marginLeft: -1,
@@ -102,22 +112,19 @@ const styles = StyleSheet.create({
   image: {
     width: 20,
     height: 20,
-    tintColor: "#2C73D5",
+    tintColor: Colors.brightNavyBlue,
     resizeMode: "contain",
+    marginRight: 10
   },
   checkmarkgood: {
     width: 20,
     height: 20,
-    tintColor: "#13C4A3",
-    alignSelf: "flex-end",
-    marginBottom: -20,
+    tintColor: Colors.caribbeanGreen,
   },
   checkmarkbad: {
     width: 20,
     height: 20,
-    tintColor: "#F75C03",
-    alignSelf: "flex-end",
-    marginBottom: -20,
+    tintColor: Colors.orange,
   },
   title: {
     marginRight: 15,
