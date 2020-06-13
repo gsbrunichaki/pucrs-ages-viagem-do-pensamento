@@ -11,46 +11,50 @@ const airplanes = [
     title: "Passado",
     subtitle: "São situações que já \naconteceram",
     image: require("../../assets/aviao1.png"),
-    airplane: AircraftEnum.PAST
+    airplane: AircraftEnum.PAST,
   },
 
   {
-    title: "Presente", 
-    subtitle: "São situações que \nestão acontecendo", 
-    image: require("../../assets/aviao2.png"), 
-    airplane: AircraftEnum.PRESENT
+    title: "Presente",
+    subtitle: "São situações que \nestão acontecendo",
+    image: require("../../assets/aviao2.png"),
+    airplane: AircraftEnum.PRESENT,
   },
 
   {
-    title: "Futuro", 
-    subtitle: "São situações que \nainda irão acontecer", 
-    image: require("../../assets/aviao3.png"), 
-    airplane: AircraftEnum.FUTURE
-  }
+    title: "Futuro",
+    subtitle: "São situações que \nainda irão acontecer",
+    image: require("../../assets/aviao3.png"),
+    airplane: AircraftEnum.FUTURE,
+  },
 ];
 
-export default function Aircraft({ navigation }) {
+export default function TripAircraft({ navigation }) {
   return (
     <CloudImageBackground>
-      <PageBanner title={'Vamos embarcar em qual avião?'} />
+      <PageBanner title={"Vamos embarcar em qual avião?"} />
       <View style={styles.container}>
         <View style={styles.content}>
-          {airplanes.map(ap => {
+          {airplanes.map((ap) => {
             const { title, subtitle, image, airplane } = ap;
 
             return (
-              <IconTextButton title={title}
+              <IconTextButton
+                title={title}
                 subtitle={subtitle}
                 navigation={navigation}
                 image={image}
-                onPress={_ => { navigation.navigate("TripBag", { aircraft: airplane })}} />
+                onPress={(_) => {
+                  navigation.navigate("TripBag", { aircraft: airplane });
+                }}
+              />
             );
           })}
         </View>
       </View>
     </CloudImageBackground>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -60,5 +64,5 @@ const styles = StyleSheet.create({
   },
   content: {
     margin: 20,
-  }
+  },
 });

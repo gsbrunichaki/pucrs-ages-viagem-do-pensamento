@@ -7,48 +7,20 @@ import Colors from "../../assets/Colors/Colors";
 import PageBanner from "../../components/PageBanner";
 import CloudImageBackground from "../../components/CloudImageBackground";
 
-export default function Feedback({ route, navigation }) {
-  const { autoAnalysis } = route.params;
-
+export default function TutorialFeedback({ route, navigation }) {
   return (
     <Container style={style.container}>
       <CloudImageBackground>
         <View style={style.content}>
-
-          <PageBanner title="Sua viagem foi registrada com sucesso!" />
-
-          {autoAnalysis ?
-            <View style={style.feedback}>
-              <View style={style.positiveBox}>
-                <Text style={style.feedbackText}>
-                  Parabéns!
-                  Foi legal para você esta viagem do pensamento. Lembre-se de ter bons pensamentos, emoções confortáveis e agir com cuidado.
-                  </Text>
-              </View>
-              <Button full rounded style={style.button, { marginHorizontal: 60 }} onPress={_ => navigation.navigate("Home")} title="Clique aqui para voltar ao menu inicial">
-                <Text style={style.textButton}>Início</Text>
-              </Button>
-            </View>
-            :
-            <View style={style.feedback}>
-              <View style={style.negativeBox}>
-                <Text style={style.feedbackText}>
-                  Poxa... não foi desta vez que a viagem do pensamento foi legal.
-                  Lembre-se de ter bons pensamentos, emoções confortáveis e agir com cuidado.
-                </Text>
-              </View>
-              <PageBanner title="Vamos refazer?" />
-
-              <View style={style.buttonGroup}>
-                <Button full rounded style={style.button} onPress={_ => navigation.navigate("TripAircraft")} title="Clique aqui para reiniciar a viagem">
-                  <Text style={style.textButton}>Sim</Text>
-                </Button>
-                <Button full rounded style={style.button} onPress={_ => navigation.navigate("Home")} title="Clique aqui para voltar ao menu inicial">
-                  <Text style={style.textButton}>Não</Text>
-                </Button>
-              </View>
-            </View>
-          }
+          <PageBanner title="Você completou o tutorial com sucesso!" />
+          <Button
+            full
+            rounded
+            style={(style.button, { marginHorizontal: 60, marginTop: 20 })}
+            onPress={() => navigation.navigate("Home")}
+          >
+            <Text style={style.textButton}>Início</Text>
+          </Button>
         </View>
       </CloudImageBackground>
     </Container>
@@ -58,7 +30,7 @@ export default function Feedback({ route, navigation }) {
 const style = StyleSheet.create({
   content: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderWidth: 0,
   },
   button: {
@@ -89,7 +61,7 @@ const style = StyleSheet.create({
     ...shadowCode,
     overflow: "visible",
     justifyContent: "center",
-    flex: 1
+    flex: 1,
   },
   feedbackText: {
     color: "white",
@@ -107,7 +79,7 @@ const style = StyleSheet.create({
     shadowRadius: -20,
     elevation: -3,
     zIndex: -1,
-    margin: 10
+    margin: 10,
   },
   negativeBox: {
     backgroundColor: Colors.lightOrange,
@@ -118,6 +90,6 @@ const style = StyleSheet.create({
     shadowRadius: -20,
     elevation: -3,
     zIndex: -1,
-    margin: 10
+    margin: 10,
   },
 });

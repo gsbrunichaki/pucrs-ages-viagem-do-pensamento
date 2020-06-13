@@ -1,12 +1,22 @@
 import React, { useState } from "react";
-import { View, ImageBackground, StyleSheet, ScrollView, Alert } from "react-native";
-import CloudImageBackground from "../../components/CloudImageBackground";
-import PageBanner from "../../components/PageBanner";
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { Content, Text, Button, Item, Input } from "native-base";
 import Colors from "../../assets/Colors/Colors";
-import Breadcrumb from "../../components/Breadcrumb";
 
-export default function Bag({ route, navigation }) {
+import Breadcrumb from "../../components/Breadcrumb";
+import CloudImageBackground from "../../components/CloudImageBackground";
+import PageBanner from "../../components/PageBanner";
+import TutorialModal from "../../components/TutorialModal";
+
+import TutorialImage from "../../assets/tutorial2.png";
+
+export default function TutorialBag({ route, navigation }) {
   const { aircraft } = route.params;
 
   const [thought, setThought] = useState("");
@@ -31,7 +41,7 @@ export default function Bag({ route, navigation }) {
         <Item style={styles.inputSpacing}>
           <Input
             value={thought}
-            placeholder="Pensamento"
+            placeholder="Pensamentos"
             style={styles.input}
             onChangeText={(value) => {
               setThought(value);
@@ -76,25 +86,34 @@ export default function Bag({ route, navigation }) {
           style={[styles.button, styles.button4]}
           full
           rounded
-          onPress={_=> verifyBag(aircraft, thought, navigation)}
+          onPress={(_) => verifyBag(aircraft, thought, navigation)}
         >
           <Text>Continuar</Text>
         </Button>
+        <TutorialModal image={TutorialImage}>
+          <Text>
+            Quando vamos viajar escolhermos o que levar em nossa mala. Podem ser
+            pensamentos bons, ou ruins.
+          </Text>
+          <Text>
+            Escreva em sua camiseta o pensamento que vem em sua cabeça.
+          </Text>
+        </TutorialModal>
       </Content>
     </CloudImageBackground>
   );
 }
 
-const verifyBag = (aircraft, thought, navigation)=> {
+const verifyBag = (aircraft, thought, navigation) => {
   if (thought === "") {
     Alert.alert("Ops!", "Por favor, informe um pensamento!");
     return;
   }
-  navigation.navigate("TripIslands", {
+  navigation.navigate("TutorialIslands", {
     aircraft,
     thoughts: thought,
   });
-}
+};
 
 const styles = StyleSheet.create({
   container: {

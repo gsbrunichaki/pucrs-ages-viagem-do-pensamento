@@ -1,12 +1,6 @@
 import React, { useEffect } from "react";
 import { Image, ImageBackground } from "react-native";
-import {
-  Card,
-  CardItem,
-  Body,
-  Content,
-  Text,
-} from "native-base";
+import { Card, CardItem, Body, Content, Text } from "native-base";
 import { FlatList, StyleSheet } from "react-native";
 
 import IslandsEnum from "../../enums/Island";
@@ -80,7 +74,7 @@ const islands = [
   },
 ];
 
-export default function Islands({ route, navigation }) {
+export default function TripIslands({ route, navigation }) {
   const { aircraft, thoughts } = route.params;
 
   useEffect(() => {
@@ -95,13 +89,13 @@ export default function Islands({ route, navigation }) {
 
   return (
     <CloudImageBackground style={styles.screen}>
-      <Content>        
+      <Content>
         <Breadcrumb aircraft={aircraft} thoughts={thoughts} />
         <Card transparent style={styles.headerCard}>
           <CardItem header style={styles.headerCardItem}>
             <Text style={styles.mainText}>
               Como se sente em relação a este pensamento?
-          </Text>
+            </Text>
           </CardItem>
         </Card>
         <FlatList

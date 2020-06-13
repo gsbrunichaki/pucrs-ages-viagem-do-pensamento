@@ -1,30 +1,30 @@
 import React, { useState } from "react";
+import { Container, Content, Card, CardItem, Text, View } from "native-base";
 import {
-  Container,
-  Content,
-  Button,
-  Card,
-  CardItem,
-  Text,
-  View,
-} from "native-base";
-import { StyleSheet, TextInput, Alert, TouchableOpacity, Platform } from "react-native";
-import Emoji from 'react-native-emoji';
-import TripSchema from "../../schemas/Trip";
-import TripService from "../../services/Trip";
+  StyleSheet,
+  TextInput,
+  Alert,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
+import Emoji from "react-native-emoji";
 import Loading from "../../components/Loading";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import shadowCode from "../../components/shadowCode";
 import Colors from "../../assets/Colors/Colors";
 import PageBanner from "../../components/PageBanner";
 import Breadcrumb from "../../components/Breadcrumb";
+import TutorialModal from "../../components/TutorialModal";
 
-export default function Reactions({ route, navigation }) {
+import TutorialImage from "../../assets/tutorial4.png";
+
+export default function TutorialReactions({ route, navigation }) {
+  const { aircraft, island, thoughts } = route.params;
+
   const [behaviour, setBehaviour] = useState("");
   const [autoAnalysis, setAutoAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { aircraft, island, thoughts } = route.params;
   return (
     <Container style={style.container}>
       <CloudImageBackground>
@@ -34,10 +34,10 @@ export default function Reactions({ route, navigation }) {
             <CardItem header style={style.firstCardItem}>
               <Text style={style.mainText}>
                 Qual será a sua atitude na situação?
-            </Text>
+              </Text>
               <Text style={style.subtext}>
                 Explique melhor o seu comportamento abaixo.
-            </Text>
+              </Text>
             </CardItem>
             <CardItem header bordered style={style.lastCardItem}>
               <TextInput
@@ -47,82 +47,87 @@ export default function Reactions({ route, navigation }) {
                 placeholderTextColor={"#9E9E9E"}
                 numberOfLines={5}
                 multiline={true}
-                onChangeText={value => setBehaviour(value)}
+                onChangeText={(value) => setBehaviour(value)}
               />
             </CardItem>
           </Card>
 
           <PageBanner title={"Como você acha que se comportou?"} />
-          {autoAnalysis === null ?
+          {autoAnalysis === null ? (
             <View style={style.buttons}>
               <TouchableOpacity
                 style={style.thumbsUp}
-                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: true, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}>
-                  <Emoji name="+1" style={{ fontSize: 60 }} />
+                onPress={() =>
+                  navigation.navigate("TutorialFeedback", {
+                    autoAnalysis: "up",
+                  })
+                }
+              >
+                <Emoji name="+1" style={{ fontSize: 60 }} />
               </TouchableOpacity>
               <TouchableOpacity
                 style={style.thumbsDown}
-                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: false, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}>
-                  <Emoji name="-1" style={{ fontSize: 60 }} />
+                onPress={() =>
+                  navigation.navigate("TutorialFeedback", {
+                    autoAnalysis: "down",
+                  })
+                }
+              >
+                <Emoji name="-1" style={{ fontSize: 60 }} />
               </TouchableOpacity>
             </View>
-            :
+          ) : (
             <View style={style.buttons}>
               <TouchableOpacity
-                style={[style.thumbsUp, { borderColor: autoAnalysis === "up" ? 'black' : 'green' }]}
-                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: true, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}
+                style={[
+                  style.thumbsUp,
+                  { borderColor: autoAnalysis === "up" ? "black" : "green" },
+                ]}
+                onPress={() =>
+                  navigation.navigate("TutorialFeedback", {
+                    autoAnalysis: "up",
+                  })
+                }
                 first
-                active={autoAnalysis === "up"}>
-                  <Emoji name="+1" style={{ fontSize: 60, borderColor: 'black' }} />
+                active={autoAnalysis === "up"}
+              >
+                <Emoji
+                  name="+1"
+                  style={{ fontSize: 60, borderColor: "black" }}
+                />
               </TouchableOpacity>
               <TouchableOpacity
-                style={[style.thumbsDown, { borderColor: autoAnalysis === "down" ? 'black' : 'red' }]}
-                onPress={_ => saveTrip({ aircraft, island, thoughts, autoAnalysis: false, behaviour }, setAutoAnalysis, { setLoading, loading }, navigation)}
+                style={[
+                  style.thumbsDown,
+                  { borderColor: autoAnalysis === "down" ? "black" : "red" },
+                ]}
+                onPress={() =>
+                  navigation.navigate("TutorialFeedback", {
+                    autoAnalysis: "down",
+                  })
+                }
                 last
-                active={autoAnalysis === "down"}>
-                  <Emoji name="-1" style={{ fontSize: 60, borderColor: 'black' }} />
+                active={autoAnalysis === "down"}
+              >
+                <Emoji
+                  name="-1"
+                  style={{ fontSize: 60, borderColor: "black" }}
+                />
               </TouchableOpacity>
             </View>
-          }
+          )}
           <Loading loading={loading} />
+          <TutorialModal image={TutorialImage}>
+            <Text>
+              Por fim, pensando desta forma que escreveu na camiseta e sentindo
+              esta emoção, qual será sua ação? Escreva seu comportamento.
+            </Text>
+            <Text style={{ marginTop: 20 }}>E veja se ajudou ou não.</Text>
+          </TutorialModal>
         </Content>
       </CloudImageBackground>
     </Container>
   );
-}
-
-const saveTrip = (trip, setAutoAnalysis, { setLoading, loading }, navigation) => {
-  if (loading)
-    return;
-
-  if (trip.behaviour === "") {
-    Alert.alert("Ops!", "Informe seu comportamento!");
-    return;
-  }
-
-  setLoading(true);
-
-  const { autoAnalysis } = trip;
-  const schema = new TripSchema(trip);
-
-  const autoAnalysisValue = autoAnalysis ? "up" : "down";
-  setAutoAnalysis(autoAnalysisValue);
-
-  TripService.create(schema)
-    .then(_ => {
-      setLoading(false);
-      navigation.navigate("TripFeedback", { autoAnalysis });
-    })
-    .catch(errorCode => {
-      console.log(errorCode);
-
-      Alert.alert(
-        "Erro",
-        errorCode.toString(),
-        [{ text: "OK", onPress: () => setLoading(false) }],
-        { cancelable: false }
-      );
-    });
 }
 
 const style = StyleSheet.create({
@@ -146,21 +151,21 @@ const style = StyleSheet.create({
     backgroundColor: Colors.caribbeanGreen,
     borderRadius: 30,
     padding: 30,
-    ...shadowCode
+    ...shadowCode,
   },
   thumbsDown: {
     backgroundColor: Colors.lightOrange,
     borderRadius: 30,
     padding: 30,
-    ...shadowCode
+    ...shadowCode,
   },
   container: {
     backgroundColor: Colors.white,
   },
   buttons: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingTop: 30,
     paddingRight: 40,
     paddingLeft: 40,
@@ -192,7 +197,7 @@ const style = StyleSheet.create({
     padding: 10,
     ...Platform.select({
       ios: {
-        ...shadowCode
+        ...shadowCode,
       },
     }),
   },
@@ -207,7 +212,7 @@ const style = StyleSheet.create({
     paddingRight: 30,
     ...Platform.select({
       android: {
-        ...shadowCode
+        ...shadowCode,
       },
     }),
   },
@@ -234,7 +239,7 @@ const style = StyleSheet.create({
     paddingRight: 30,
     ...Platform.select({
       android: {
-        ...shadowCode
+        ...shadowCode,
       },
     }),
   },
@@ -242,7 +247,6 @@ const style = StyleSheet.create({
     borderTopRightRadius: 20,
     paddingBottom: 10,
     paddingRight: 10,
-
   },
   TextInputStyleClass: {
     display: "flex",
@@ -253,7 +257,8 @@ const style = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "#9E9E9E",
     borderRadius: 10,
-    backgroundColor: Colors.white, ...Platform.select({
+    backgroundColor: Colors.white,
+    ...Platform.select({
       android: {
         height: 50,
       },

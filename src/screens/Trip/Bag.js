@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { View, ImageBackground, StyleSheet, ScrollView, Alert } from "react-native";
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  ScrollView,
+  Alert,
+} from "react-native";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import PageBanner from "../../components/PageBanner";
 import { Content, Text, Button, Item, Input } from "native-base";
 import Colors from "../../assets/Colors/Colors";
 import Breadcrumb from "../../components/Breadcrumb";
 
-export default function Bag({ route, navigation }) {
+export default function TripBag({ route, navigation }) {
   const { aircraft } = route.params;
 
   const [thought, setThought] = useState("");
@@ -31,7 +37,7 @@ export default function Bag({ route, navigation }) {
         <Item style={styles.inputSpacing}>
           <Input
             value={thought}
-            placeholder="Pensamento"
+            placeholder="Pensamentos"
             style={styles.input}
             onChangeText={(value) => {
               setThought(value);
@@ -76,7 +82,7 @@ export default function Bag({ route, navigation }) {
           style={[styles.button, styles.button4]}
           full
           rounded
-          onPress={_=> verifyBag(aircraft, thought, navigation)}
+          onPress={(_) => verifyBag(aircraft, thought, navigation)}
         >
           <Text>Continuar</Text>
         </Button>
@@ -85,7 +91,7 @@ export default function Bag({ route, navigation }) {
   );
 }
 
-const verifyBag = (aircraft, thought, navigation)=> {
+const verifyBag = (aircraft, thought, navigation) => {
   if (thought === "") {
     Alert.alert("Ops!", "Por favor, informe um pensamento!");
     return;
@@ -94,7 +100,7 @@ const verifyBag = (aircraft, thought, navigation)=> {
     aircraft,
     thoughts: thought,
   });
-}
+};
 
 const styles = StyleSheet.create({
   container: {
