@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
-import { Image, ImageBackground } from "react-native";
+import { FlatList, Image, ImageBackground, StyleSheet } from "react-native";
 import { Card, CardItem, Body, Content, Text } from "native-base";
-import { FlatList, StyleSheet } from "react-native";
-
-import IslandsEnum from "../../enums/Island";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import CloudImageBackground from "../../components/CloudImageBackground";
 import Colors from "../../assets/Colors/Colors";
-import shadowCode from "../../components/shadowCode";
+import IslandsEnum from "../../enums/Island";
+
 import Breadcrumb from "../../components/Breadcrumb";
+import CloudImageBackground from "../../components/CloudImageBackground";
+import shadowCode from "../../components/shadowCode";
+import TutorialModal from "../../components/TutorialModal";
+
+import TutorialImage from "../../assets/tutorial3.png";
 
 const island = require("../../assets/island.png");
 const islands = [
@@ -74,18 +76,8 @@ const islands = [
   },
 ];
 
-export default function TripIslands({ route, navigation }) {
+export default function TutorialIslands({ route, navigation }) {
   const { aircraft, thoughts } = route.params;
-
-  useEffect(() => {
-    if (!aircraft)
-      return alert("Aircraft é obrigatória. Envie nos parameteros.");
-
-    if (!thoughts)
-      return alert(
-        "Thoughts (pensamentos) é obrigatório. Envie nos parameteros."
-      );
-  }, [aircraft, thoughts]);
 
   return (
     <CloudImageBackground style={styles.screen}>
@@ -106,7 +98,7 @@ export default function TripIslands({ route, navigation }) {
             <Card style={styles.card}>
               <TouchableOpacity
                 onPress={(_) => {
-                  navigation.navigate("TripReactions", {
+                  navigation.navigate("TutorialReactions", {
                     aircraft,
                     island: item.id,
                     thoughts,
@@ -126,6 +118,17 @@ export default function TripIslands({ route, navigation }) {
           )}
           style={{ overflow: "visible", marginTop: 10 }}
         />
+        <TutorialModal image={TutorialImage}>
+          <Text>
+            Quando vamos viajar escolhemos esta camiseta com nosso pensamento.
+          </Text>
+          <Text>E vamos aterrizar em alguma ilha das nossas emoções.</Text>
+          <Text>Qual emoção você sente?</Text>
+          <Text>
+            Em qual ilha irá parar? Ilha do medo, ilha da alegria, ilha da
+            raiva.. escolha sua ilha.
+          </Text>
+        </TutorialModal>
       </Content>
     </CloudImageBackground>
   );

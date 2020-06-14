@@ -1,58 +1,69 @@
 import React from "react";
 import { View, Button, Text } from "native-base";
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import UserService from "../services/User";
 import IconTextButton from "../components/IconTextButton";
 import CloudImageBackground from "../components/CloudImageBackground";
 import PageBanner from "../components/PageBanner";
 
 export default function Home({ navigation, setLogged }) {
-
   return (
     <CloudImageBackground>
-      <PageBanner title={'Bem-vindo(a) à Viagem do Pensamento!'} />
+      <PageBanner title={"Bem-vindo(a) à Viagem do Pensamento!"} />
 
       <View style={styles.contStyle}>
         <Text style={styles.textStyle}></Text>
 
-        <IconTextButton title="Viajar"
+        <IconTextButton
+          title="Viajar"
           subtitle="Faça sua viagem"
-          onPress={_ => { navigation.navigate("TripAircraft") }}
-          image={require("../assets/cloud-icon.png")} />
-
-        <IconTextButton title="Tutorial"
-          subtitle="Aprenda a utilizar o aplicativo."
           onPress={(_) => {
-            alert("Tutorial em construção...");
+            navigation.navigate("TripAircraft");
           }}
-          image={require("../assets/cloud-icon.png")} />
+          image={require("../assets/cloud-icon.png")}
+        />
 
-        <IconTextButton title="Passaporte"
+        <IconTextButton
+          title="Tutorial"
+          subtitle="Aprenda a utilizar o aplicativo."
+          onPress={() => {
+            navigation.navigate("TutorialAircraft");
+          }}
+          image={require("../assets/cloud-icon.png")}
+        />
+
+        <IconTextButton
+          title="Passaporte"
           subtitle="Ver informações salvas sobre você."
-          onPress={_ => { navigation.navigate("Passaporte") }}
-          image={require("../assets/cloud-icon.png")} />
+          onPress={(_) => {
+            navigation.navigate("Passaporte");
+          }}
+          image={require("../assets/cloud-icon.png")}
+        />
 
-        <Button onPress={() => { UserService.logout(); setLogged(false); }}>
+        <Button
+          onPress={() => {
+            UserService.logout();
+            setLogged(false);
+          }}
+        >
           <Text style={styles.textStyle}>Sair</Text>
         </Button>
-
       </View>
     </CloudImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  contStyle:{
+  contStyle: {
     padding: 15,
     flex: 1,
     justifyContent: "center",
-    alignSelf: "center"
+    alignSelf: "center",
   },
-  textStyle:{
+  textStyle: {
     fontWeight: "bold",
     fontSize: 18,
   },
-  buttonStyle:{
-
-  }
+  buttonStyle: {},
 });

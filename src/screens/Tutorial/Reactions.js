@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Content,
-  Button,
-  Card,
-  CardItem,
-  Text,
-  View,
-} from "native-base";
+import { Container, Content, Card, CardItem, Text, View } from "native-base";
 import {
   StyleSheet,
   TextInput,
@@ -16,21 +8,23 @@ import {
   Platform,
 } from "react-native";
 import Emoji from "react-native-emoji";
-import TripSchema from "../../schemas/Trip";
-import TripService from "../../services/Trip";
 import Loading from "../../components/Loading";
 import CloudImageBackground from "../../components/CloudImageBackground";
 import shadowCode from "../../components/shadowCode";
 import Colors from "../../assets/Colors/Colors";
 import PageBanner from "../../components/PageBanner";
 import Breadcrumb from "../../components/Breadcrumb";
+import TutorialModal from "../../components/TutorialModal";
 
-export default function TripReactions({ route, navigation }) {
+import TutorialImage from "../../assets/tutorial4.png";
+
+export default function TutorialReactions({ route, navigation }) {
+  const { aircraft, island, thoughts } = route.params;
+
   const [behaviour, setBehaviour] = useState("");
   const [autoAnalysis, setAutoAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { aircraft, island, thoughts } = route.params;
   return (
     <Container style={style.container}>
       <CloudImageBackground>
@@ -63,38 +57,20 @@ export default function TripReactions({ route, navigation }) {
             <View style={style.buttons}>
               <TouchableOpacity
                 style={style.thumbsUp}
-                onPress={(_) =>
-                  saveTrip(
-                    {
-                      aircraft,
-                      island,
-                      thoughts,
-                      autoAnalysis: true,
-                      behaviour,
-                    },
-                    setAutoAnalysis,
-                    { setLoading, loading },
-                    navigation
-                  )
+                onPress={() =>
+                  navigation.navigate("TutorialFeedback", {
+                    autoAnalysis: "up",
+                  })
                 }
               >
                 <Emoji name="+1" style={{ fontSize: 60 }} />
               </TouchableOpacity>
               <TouchableOpacity
                 style={style.thumbsDown}
-                onPress={(_) =>
-                  saveTrip(
-                    {
-                      aircraft,
-                      island,
-                      thoughts,
-                      autoAnalysis: false,
-                      behaviour,
-                    },
-                    setAutoAnalysis,
-                    { setLoading, loading },
-                    navigation
-                  )
+                onPress={() =>
+                  navigation.navigate("TutorialFeedback", {
+                    autoAnalysis: "down",
+                  })
                 }
               >
                 <Emoji name="-1" style={{ fontSize: 60 }} />
@@ -107,19 +83,10 @@ export default function TripReactions({ route, navigation }) {
                   style.thumbsUp,
                   { borderColor: autoAnalysis === "up" ? "black" : "green" },
                 ]}
-                onPress={(_) =>
-                  saveTrip(
-                    {
-                      aircraft,
-                      island,
-                      thoughts,
-                      autoAnalysis: true,
-                      behaviour,
-                    },
-                    setAutoAnalysis,
-                    { setLoading, loading },
-                    navigation
-                  )
+                onPress={() =>
+                  navigation.navigate("TutorialFeedback", {
+                    autoAnalysis: "up",
+                  })
                 }
                 first
                 active={autoAnalysis === "up"}
@@ -134,19 +101,10 @@ export default function TripReactions({ route, navigation }) {
                   style.thumbsDown,
                   { borderColor: autoAnalysis === "down" ? "black" : "red" },
                 ]}
-                onPress={(_) =>
-                  saveTrip(
-                    {
-                      aircraft,
-                      island,
-                      thoughts,
-                      autoAnalysis: false,
-                      behaviour,
-                    },
-                    setAutoAnalysis,
-                    { setLoading, loading },
-                    navigation
-                  )
+                onPress={() =>
+                  navigation.navigate("TutorialFeedback", {
+                    autoAnalysis: "down",
+                  })
                 }
                 last
                 active={autoAnalysis === "down"}
@@ -159,49 +117,18 @@ export default function TripReactions({ route, navigation }) {
             </View>
           )}
           <Loading loading={loading} />
+          <TutorialModal image={TutorialImage}>
+            <Text>
+              Por fim, pensando desta forma que escreveu na camiseta e sentindo
+              esta emoção, qual será sua ação? Escreva seu comportamento.
+            </Text>
+            <Text style={{ marginTop: 20 }}>E veja se ajudou ou não.</Text>
+          </TutorialModal>
         </Content>
       </CloudImageBackground>
     </Container>
   );
 }
-
-const saveTrip = (
-  trip,
-  setAutoAnalysis,
-  { setLoading, loading },
-  navigation
-) => {
-  if (loading) return;
-
-  if (trip.behaviour === "") {
-    Alert.alert("Ops!", "Informe seu comportamento!");
-    return;
-  }
-
-  setLoading(true);
-
-  const { autoAnalysis } = trip;
-  const schema = new TripSchema(trip);
-
-  const autoAnalysisValue = autoAnalysis ? "up" : "down";
-  setAutoAnalysis(autoAnalysisValue);
-
-  TripService.create(schema)
-    .then((_) => {
-      setLoading(false);
-      navigation.navigate("TripFeedback", { autoAnalysis });
-    })
-    .catch((errorCode) => {
-      console.log(errorCode);
-
-      Alert.alert(
-        "Erro",
-        errorCode.toString(),
-        [{ text: "OK", onPress: () => setLoading(false) }],
-        { cancelable: false }
-      );
-    });
-};
 
 const style = StyleSheet.create({
   button: {
