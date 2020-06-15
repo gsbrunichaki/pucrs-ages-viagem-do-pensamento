@@ -63,10 +63,13 @@ export default function App() {
   ];
 
   const authenticatedRoutes = (setLogged) => [
-    <Screen name="Home">
-      {(props) => <Home {...props} setLogged={setLogged} />}
-    </Screen>,
-
+    <Screen
+      name="Home"
+      component={Home}
+      options={{
+        title: "Início",
+      }}
+    />,
     <Screen
       name="TripAircraft"
       component={TripAircraft}
