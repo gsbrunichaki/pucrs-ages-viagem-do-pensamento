@@ -6,7 +6,7 @@ import UserService from "../../services/User";
 import UserSchema from "../../schemas/UserUpdate";
 import LibDate from "../../lib/date";
 
-export default function Perfil({ navigation }) {
+export default function Perfil({ navigation, setLogged }) {
 
   const [user, setUser] = useState(null);
   const [name, setName] = useState(null);
@@ -116,6 +116,15 @@ export default function Perfil({ navigation }) {
             }}>
             <Text style={styles.textbutton}>Salvar</Text>
           </Button>
+
+          <Button
+            style={styles.buttonStyle}
+            onPress={() => {
+            UserService.logout();
+            setLogged(false);}}>
+          <Text style={styles.textStyle}>Sair</Text>
+        </Button>
+
         </ImageBackground>
       </ScrollView>
     </ImageBackground>
@@ -146,6 +155,17 @@ const doSubmit = (values, navigation) => {
 };
 
 const styles = StyleSheet.create({
+  buttonStyle: {
+    color: "#F71B15",
+    justifyContent: "center",
+    width: "30%",
+    alignSelf: "flex-end"
+  },
+  textStyle: {
+    fontWeight: "bold",
+    fontSize: 18,
+    textAlign: "center"
+  },
   datepicker: {
     marginVertical: 10,
     color: "#000"

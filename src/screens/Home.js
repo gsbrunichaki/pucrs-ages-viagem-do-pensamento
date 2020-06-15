@@ -6,6 +6,7 @@ import IconTextButton from "../components/IconTextButton";
 import CloudImageBackground from "../components/CloudImageBackground";
 import PageBanner from "../components/PageBanner";
 
+
 export default function Home({ navigation, setLogged }) {
   return (
     <CloudImageBackground>
@@ -20,7 +21,9 @@ export default function Home({ navigation, setLogged }) {
           onPress={(_) => {
             navigation.navigate("TripAircraft");
           }}
-          image={require("../assets/cloud-icon.png")}
+          image={require("../assets/PlaneHome.png")
+            
+        }
         />
 
         <IconTextButton
@@ -38,17 +41,10 @@ export default function Home({ navigation, setLogged }) {
           onPress={(_) => {
             navigation.navigate("Passaporte");
           }}
-          image={require("../assets/cloud-icon.png")}
+          image={require("../assets/PassportHome.png")}
         />
 
-        <Button
-          onPress={() => {
-            UserService.logout();
-            setLogged(false);
-          }}
-        >
-          <Text style={styles.textStyle}>Sair</Text>
-        </Button>
+
       </View>
     </CloudImageBackground>
   );
@@ -64,6 +60,20 @@ const styles = StyleSheet.create({
   textStyle: {
     fontWeight: "bold",
     fontSize: 18,
+    
   },
-  buttonStyle: {},
+  buttonStyle: {
+    justifyContent: "center",
+  },
 });
+/*
+<Button
+style={styles.buttonStyle}
+onPress={() => {
+  UserService.logout();
+  setLogged(false);
+}}
+>
+<Text style={styles.textStyle}>Sair</Text>
+</Button>
+*/
