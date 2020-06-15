@@ -75,14 +75,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-/*
-<Button
-style={styles.buttonStyle}
-onPress={() => {
-  UserService.logout();
-  setLogged(false);
-}}
->
-<Text style={styles.textStyle}>Sair</Text>
-</Button>
-*/
