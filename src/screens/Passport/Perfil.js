@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
 import { ImageBackground, StyleSheet, ScrollView, Alert } from "react-native";
 import { Text, Button, View, Card, Input, Item, Picker, DatePicker, Label } from "native-base";
 import UserService from "../../services/User";
 import UserSchema from "../../schemas/UserUpdate";
-import LibDate from "../../lib/date";
 
-export default function Perfil({ navigation, setLogged }) {
+export default function Perfil({ navigation }) {
 
   const [user, setUser] = useState(null);
   const [name, setName] = useState(null);
@@ -117,13 +115,7 @@ export default function Perfil({ navigation, setLogged }) {
             <Text style={styles.textbutton}>Salvar</Text>
           </Button>
 
-          <Button
-            style={styles.buttonStyle}
-            onPress={() => {
-            UserService.logout();
-            setLogged(false);}}>
-          <Text style={styles.textStyle}>Sair</Text>
-        </Button>
+
 
         </ImageBackground>
       </ScrollView>

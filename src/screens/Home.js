@@ -43,6 +43,15 @@ export default function Home({ navigation, setLogged }) {
           }}
           image={require("../assets/PassportHome.png")}
         />
+        <Button
+            style={styles.buttonStyle}
+            onPress={() => {
+            UserService.logout();
+            setLogged(false);
+
+            }}>
+          <Text style={styles.textStyle}>Sair</Text>
+        </Button>
 
 
       </View>
