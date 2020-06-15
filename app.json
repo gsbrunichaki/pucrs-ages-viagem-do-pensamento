@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./src/assets/appIcon.png",
     "splash": {
@@ -32,7 +32,7 @@
     "android": {
       "package": "br.com.pucrs.viagemdopensamento.app",
       "icon": "./src/assets/appIcon.png",
-      "versionCode": 1
+      "versionCode": 2
     }
   }
 }
