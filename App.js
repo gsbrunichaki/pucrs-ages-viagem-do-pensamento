@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AppLoading } from "expo";
-import { StyleProvider } from "native-base";
+import { StyleProvider, Button, Text } from "native-base";
 import getTheme from "./native-base-theme/components";
 import commonColor from "./native-base-theme/variables/commonColor";
 import * as Font from "expo-font";
@@ -95,7 +95,9 @@ export default function App() {
     <Screen
       name="Perfil"
       component={Perfil}
-      options={{ title: "Perfil do usuário" }}
+      options={{
+        title: "Perfil do usuário",
+      }}
     />,
     <Screen
       name="Historico"
@@ -105,7 +107,20 @@ export default function App() {
     <Screen
       name="Passaporte"
       component={Passaporte}
-      options={{ title: "Passaporte" }}
+      options={{
+        title: "Passaporte",
+        headerRight: () => (
+          <Button
+            transparent
+            onPress={() => {
+              UserService.logout();
+              setLogged(false);
+            }}
+          >
+            <Text>Sair</Text>
+          </Button>
+        ),
+      }}
     />,
     <Screen
       name="TutorialAircraft"
