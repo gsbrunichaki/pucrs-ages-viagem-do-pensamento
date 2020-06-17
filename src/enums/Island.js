@@ -1,14 +1,50 @@
 export default {
-    HAPPY: "happy",
-    SADNESS: "sadness",
-    ANGER: "anger",
-    FEAR: "fear",
-    PRIDE: "pride",
-    JEALOUS: "jealous",
-    ANXIETY: "anxiety",
-    LOVE: "love",
-    DISGUSTED: "disgusted",
-    GUILTY: "guilty",
-    SHAME: "shame",
-    LONGING: "longing"
-}
+  HAPPY: {
+    id: "happy",
+    description: "Alegria",
+  },
+  SADNESS: {
+    id: "sadness",
+    description: "Tristeza",
+  },
+  ANGER: {
+    id: "anger",
+    description: "Raiva",
+  },
+  FEAR: {
+    id: "fear",
+    description: "Medo",
+  },
+  PRIDE: {
+    id: "pride",
+    description: "Orgulho",
+  },
+  JEALOUS: {
+    id: "jealous",
+    description: "Ciúmes",
+  },
+  ANXIETY: {
+    id: "anxiety",
+    description: "Ansiedade",
+  },
+  LOVE: {
+    id: "love",
+    description: "Amor",
+  },
+  DISGUSTED: {
+    id: "disgusted",
+    description: "Nojo",
+  },
+  GUILTY: {
+    id: "guilty",
+    description: "Culpa",
+  },
+  SHAME: {
+    id: "shame",
+    description: "Vergonha",
+  },
+  LONGING: {
+    id: "longing",
+    description: "Anseio",
+  },
+};
