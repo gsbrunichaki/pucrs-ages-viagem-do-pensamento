@@ -1,8 +1,10 @@
-import React, { Component } from "react";
-import {Image, StyleSheet, View} from "react-native";
-import {Text, Card } from "native-base";
-import DateLib from "../lib/date"
-import Colors from "../assets/Colors/Colors";
+import React, { Component } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
+import { Text, Card } from 'native-base';
+import DateLib from '../lib/date';
+import Colors from '../assets/Colors/Colors';
+
+import Islands from '../enums/Island';
 
 export default class HistoryTrip extends Component {
   constructor(props) {
@@ -14,51 +16,64 @@ export default class HistoryTrip extends Component {
     return (
       <React.Fragment>
         <Card style={styles.cardDate}>
-          <Text style={styles.textDate}>{DateLib.getDiaMesAno(trip.createDate.toDate())}</Text>
+          <Text style={styles.textDate}>
+            {DateLib.getDiaMesAno(trip.createDate.toDate())}
+          </Text>
         </Card>
         <View style={styles.content}>
           <Card style={styles.card}>
-            
             <View style={styles.cardItemContent}>
-              
-                <Image source={require("../assets/Plane.png")} style={styles.image} />
-                <Text style={styles.title}>{trip.aircraft}</Text>
-                
-                <View style={styles.contentAutoAnalisys}>
-                    {
-                      trip.autoAnalysis ?
-                      <Image source={require("../assets/Bad.png")} style={styles.checkmarkbad} />
-                      :
-                      <Image source={require("../assets/Good.png")} style={styles.checkmarkgood} />
-                    }
-                  </View>
+              <Image
+                source={require('../assets/Plane.png')}
+                style={styles.image}
+              />
+              <Text style={styles.title}>{trip.aircraft}</Text>
+
+              <View style={styles.contentAutoAnalisys}>
+                {trip.autoAnalysis ? (
+                  <Image
+                    source={require('../assets/Bad.png')}
+                    style={styles.checkmarkbad}
+                  />
+                ) : (
+                  <Image
+                    source={require('../assets/Good.png')}
+                    style={styles.checkmarkgood}
+                  />
+                )}
+              </View>
             </View>
 
             <View style={styles.divider}></View>
 
             <View style={[styles.cardItemContent]}>
-              
-                <Image source={require("../assets/Thought.png")} style={styles.image} />
-                <Text style={styles.title}>{trip.thoughts}</Text>
-              
-            </View>
-
-            <View style={styles.divider}></View>
-
-            <View style={styles.cardItemContent}> 
-              
-                <Image source={require("../assets/Emotion.png")} style={styles.image} />
-                <Text style={styles.title}>{trip.island}</Text>
-              
+              <Image
+                source={require('../assets/Thought.png')}
+                style={styles.image}
+              />
+              <Text style={styles.title}>{trip.thoughts}</Text>
             </View>
 
             <View style={styles.divider}></View>
 
             <View style={styles.cardItemContent}>
-              
-                <Image source={require("../assets/Action.png")} style={styles.image} />
-                <Text style={styles.title}>{trip.behaviour}</Text>
-              
+              <Image
+                source={require('../assets/Emotion.png')}
+                style={styles.image}
+              />
+              <Text style={styles.title}>
+                {Islands[trip.island.toUpperCase()].description}
+              </Text>
+            </View>
+
+            <View style={styles.divider}></View>
+
+            <View style={styles.cardItemContent}>
+              <Image
+                source={require('../assets/Action.png')}
+                style={styles.image}
+              />
+              <Text style={styles.title}>{trip.behaviour}</Text>
             </View>
           </Card>
         </View>
@@ -73,11 +88,11 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.whitish,
   },
   content: {
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   contentAutoAnalisys: {
     flex: 1,
-    alignItems: "flex-end",
+    alignItems: 'flex-end',
   },
   card: {
     paddingHorizontal: 15,
@@ -90,7 +105,7 @@ const styles = StyleSheet.create({
   cardItemContent: {
     flexDirection: 'row',
     padding: 15,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   cardItem: {
     flexDirection: 'column',
@@ -107,14 +122,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     marginLeft: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   image: {
     width: 20,
     height: 20,
     tintColor: Colors.brightNavyBlue,
-    resizeMode: "contain",
-    marginRight: 10
+    resizeMode: 'contain',
+    marginRight: 10,
   },
   checkmarkgood: {
     width: 20,
@@ -128,12 +143,12 @@ const styles = StyleSheet.create({
   },
   title: {
     marginRight: 15,
-    color: "#3F3232",
+    color: '#3F3232',
     fontSize: 20,
     marginLeft: 10,
-    textAlign: "left",
-    textAlignVertical: "center",
-    justifyContent: "flex-start",
+    textAlign: 'left',
+    textAlignVertical: 'center',
+    justifyContent: 'flex-start',
     alignSelf: 'flex-start',
   },
 });
